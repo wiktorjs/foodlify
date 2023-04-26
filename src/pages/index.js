@@ -3,7 +3,7 @@ import Head from 'next/head';
 import classes from '../styles/Home.module.scss';
 import Header from '@/components/Header/Header';
 import MainNavigation from '@/components/MainNavigation/MainNavigation';
-
+import Categories from '@/components/Categories/Categories';
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
       <MainNavigation />
       <Header />
       <main className={classes.main}>
-            <h1>Testing</h1>
+        <Categories />
       </main>
     </>
   );

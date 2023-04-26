@@ -1,0 +1,83 @@
+.button {
+  //   visibility: hidden;
+  //   opacity: 0;
+  //   position: fixed;
+  position: relative;
+  z-index: 50;
+  //   top: 4rem;
+  //   left: 3rem;
+  height: 2rem;
+
+  //   background-color: rgba($color-primary, 0.9);
+  padding: 3rem;
+  border-radius: 5px;
+  cursor: pointer;
+  //   box-shadow: $bshadow-s;
+  transition: background-color, box-shadow, opacity, 0.2s ease-in;
+  will-change: background-color, box-shadow;
+
+  &.active {
+    box-shadow: none;
+    background-color: transparent;
+  }
+
+  & > * {
+    display: block;
+    position: absolute;
+    left: 50%;
+    height: 2px;
+    width: 50%;
+    border-radius: 2px;
+    background-color: var(--color-black);
+
+    transform: rotate(0deg) translateX(-50%);
+    transform-origin: left center;
+    transition: transform, top, width, opacity, background-color,
+      0.25s ease-in-out;
+    will-change: transform, top, width, opacity, background-color;
+  }
+
+  //   @include respond(phone) {
+  //     visibility: visible;
+  //     opacity: 1;
+  //   }
+
+  border: none;
+
+  &:focus,
+  &:active {
+    outline: none;
+    & > * {
+      background-color: var(--color-primary);
+    }
+  }
+}
+
+.top {
+  top: 35%;
+
+  &.active {
+    transform: rotate(45deg) translateX(-50%);
+    top: 50%;
+  }
+}
+
+.mid {
+  transform: translate(-50% -50%);
+  top: 50%;
+
+  &.active {
+    width: 0%;
+    opacity: 0;
+  }
+}
+
+.bottom {
+  transform: translate(-50% -100%);
+  top: 65%;
+
+  &.active {
+    transform: rotate(-45deg) translateX(-50%);
+    top: 50%;
+  }
+}
