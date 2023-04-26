@@ -10,16 +10,29 @@ import NavigationButton from '../UI/NavigationButton';
 import { useState } from 'react';
 
 export default function Categories() {
-    const [buttonIsActive, setButtonIsActive] = useState(false);
+  const [buttonIsActive, setButtonIsActive] = useState(false);
 
-    const openButtonHandler = () => setButtonIsActive(!buttonIsActive)
+  const openButtonHandler = () => setButtonIsActive(!buttonIsActive);
   return (
     <section className={classes.categories}>
       <div className={classes.menu} onClick={openButtonHandler}>
         <NavigationButton active={buttonIsActive} />
-        <p>See all categories</p>
+        <p>{!buttonIsActive ? 'Show' : 'Hide'} all categories</p>
       </div>
-      
+
+      <div
+        className={`${classes['filters-wrapper']} ${
+          buttonIsActive ? classes.active : ''
+        }`}
+      >
+        <hr className={classes.hr} />
+        <div className={classes.filters}>
+          <p>Test</p>
+          <p>Test</p>
+          <p>Test</p>
+        </div>
+      </div>
+
       <div className={classes['categories-box']}>
         <Category src={vegetablesImg} name="Vegan" />
         <Category src={nutsImg} name="Nuts" />

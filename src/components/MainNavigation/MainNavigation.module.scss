@@ -35,6 +35,7 @@
         display: flex;
       }
 
+      // | Sign in/up anchor
       & .link {
         transition: color, border-color, 0.2s ease;
         border-bottom: 1px solid transparent;
@@ -48,6 +49,7 @@
         }
       }
 
+      // | Icon box anchor
       & .icon-box {
         border: none;
         cursor: pointer;
@@ -69,8 +71,4 @@
   height: 2.5rem;
   width: 2.5rem;
   transition: transform, color, 0.2s ease;
-}
-
-.enter {
-  opacity: 0 !important;
 }

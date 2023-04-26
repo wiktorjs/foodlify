@@ -1,4 +1,4 @@
-import classes from "./Categories.module.scss";
+import classes from "./Category.module.scss";
 
 export default function Category(props) {
   return (
