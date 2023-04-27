@@ -4,8 +4,17 @@ import classes from '../styles/Home.module.scss';
 import Header from '@/components/Header/Header';
 import MainNavigation from '@/components/MainNavigation/MainNavigation';
 import Categories from '@/components/Categories/Categories';
+import { useEffect } from 'react';
 
 export default function Home() {
+  const getData = async function() {
+    const res = await fetch();
+    const data = await res.json();
+    console.log(data)
+  }
+  useEffect(() => {
+    getData();
+  }, [getData])
   return (
     <>
       <Head>

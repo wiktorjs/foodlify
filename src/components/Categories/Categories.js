@@ -1,18 +1,14 @@
-import classes from './Categories.module.scss';
-import Category from './Category';
-import vegetablesImg from '../../img/vegetables.jpg';
-import nutsImg from '../../img/nuts.jpg';
-import ketoImg from '../../img/keto.jpg';
-import breakfastImg from '../../img/breakfast.jpg';
-import lunchImg from '../../img/lunch.jpg';
-import dinnerImg from '../../img/dinner.jpg';
-import NavigationButton from '../UI/NavigationButton';
 import { useState } from 'react';
+import classes from './Categories.module.scss';
+import NavigationButton from '../UI/NavigationButton';
+import Category from './Category';
+import RecipeCard from '../RecipeCard/RecipeCard';
+import { CATEGORIES } from '@/store/categories-images';
 
 export default function Categories() {
   const [buttonIsActive, setButtonIsActive] = useState(false);
 
-  const openButtonHandler = () => setButtonIsActive(!buttonIsActive);
+  const openButtonHandler = () => setButtonIsActive(prevState => !prevState);
   return (
     <section className={classes.categories}>
       <div className={classes.menu} onClick={openButtonHandler}>
@@ -34,12 +30,16 @@ export default function Categories() {
       </div>
 
       <div className={classes['categories-box']}>
-        <Category src={vegetablesImg} name="Vegan" />
-        <Category src={nutsImg} name="Nuts" />
-        <Category src={ketoImg} name="Keto" />
-        <Category src={breakfastImg} name="Breakfast" />
-        <Category src={lunchImg} name="Lunch" />
-        <Category src={dinnerImg} name="Dinner" />
+        {CATEGORIES.map((category, i) => (
+          <Category key={i} src={category.img} name={category.name} />
+        ))}
+      </div>
+
+      <div className={classes['recipes-box']}>
+        <RecipeCard />
+        <RecipeCard />
+        <RecipeCard />
+        <RecipeCard />
       </div>
     </section>
   );

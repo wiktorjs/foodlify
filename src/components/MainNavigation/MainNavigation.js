@@ -16,7 +16,7 @@ export default function MainNavigation() {
   
   const changeThemeHandler = (e) => {
     e.preventDefault();
-    setIsLightTheme(!isLightTheme);
+    setIsLightTheme(prevState => !prevState);
   };
 
   return (
