@@ -3,14 +3,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+
     cursor: pointer;
   
     position: relative;
     height: 10rem;
     width: 10rem;
   
-    border-radius: 100px;
+    border-radius: 500px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
     border: 2px solid var(--color-white);
   
@@ -18,7 +18,7 @@
     will-change: border-color, transform, box-shadow;
     overflow: hidden;
   
-    img {
+    .img {
       position: absolute;
   
       width: 100%;

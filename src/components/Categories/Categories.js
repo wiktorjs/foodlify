@@ -1,45 +1,49 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classes from './Categories.module.scss';
-import NavigationButton from '../UI/NavigationButton';
-import Category from './Category';
-import RecipeCard from '../RecipeCard/RecipeCard';
-import { CATEGORIES } from '@/store/categories-images';
 
-export default function Categories() {
-  const [buttonIsActive, setButtonIsActive] = useState(false);
+import { useDispatch, useSelector } from 'react-redux';
+import { setRecipes } from '@/store/recipesSlice';
+import useHttp from '../../hooks/use-http';
 
-  const openButtonHandler = () => setButtonIsActive(prevState => !prevState);
+import Filters from './Filters';
+import MainCategories from './MainCategories';
+import Recipes from '../Recipes/Recipes';
+import Loader from '../UI/Loader';
+import NoRecipes from '../Recipes/NoRecipes';
+
+export default function Categories({ credentials }) {
+  const [pageRecipes, setPageRecipes] = useState(null);
+  const stateRecipes = useSelector((state) => state.recipes);
+  const dispatch = useDispatch();
+
+  const loadRecipes = async function () {
+    const data = await useHttp(credentials);
+    const fetchedRecipes = data.recipes;
+
+    // Send all 20 recipes to state
+    dispatch(setRecipes(fetchedRecipes));
+
+    // Display 6 recipes
+    setPageRecipes(fetchedRecipes.slice(0, 6));
+  };
+
+  useEffect(() => {
+    if (stateRecipes.recipes.length > 0) return; // Prevents sending API requests with each file save
+    // loadRecipes();
+  }, [stateRecipes]);
+
   return (
-    <section className={classes.categories}>
-      <div className={classes.menu} onClick={openButtonHandler}>
-        <NavigationButton active={buttonIsActive} />
-        <p>{!buttonIsActive ? 'Show' : 'Hide'} all categories</p>
-      </div>
+    <section className={classes.section}>
+      <Filters />
+      <div className={classes.wrapper}>
+        <MainCategories />
 
-      <div
-        className={`${classes['filters-wrapper']} ${
-          buttonIsActive ? classes.active : ''
-        }`}
-      >
-        <hr className={classes.hr} />
-        <div className={classes.filters}>
-          <p>Test</p>
-          <p>Test</p>
-          <p>Test</p>
+        <div className={classes['recipes-box']}>
+        
+          {!pageRecipes && <NoRecipes />}
+          {pageRecipes && <Recipes recipes={pageRecipes} />}
+
         </div>
-      </div>
-
-      <div className={classes['categories-box']}>
-        {CATEGORIES.map((category, i) => (
-          <Category key={i} src={category.img} name={category.name} />
-        ))}
-      </div>
-
-      <div className={classes['recipes-box']}>
-        <RecipeCard />
-        <RecipeCard />
-        <RecipeCard />
-        <RecipeCard />
       </div>
     </section>
   );

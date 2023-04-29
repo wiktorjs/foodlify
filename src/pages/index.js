@@ -4,17 +4,11 @@ import classes from '../styles/Home.module.scss';
 import Header from '@/components/Header/Header';
 import MainNavigation from '@/components/MainNavigation/MainNavigation';
 import Categories from '@/components/Categories/Categories';
-import { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { store } from '@/store/store';
 
 export default function Home() {
-  const getData = async function() {
-    const res = await fetch();
-    const data = await res.json();
-    console.log(data)
-  }
-  useEffect(() => {
-    getData();
-  }, [getData])
+
   return (
     <>
       <Head>
@@ -25,9 +19,17 @@ export default function Home() {
       </Head>
       <MainNavigation />
       <Header />
-      <main className={classes.main}>
-        <Categories />
-      </main>
+
+      <Provider store={store}>
+        <main className={classes.main}>
+          <Categories  />
+        </main>
+      </Provider>
     </>
   );
 }
+
+
+// export const getStaticProps = function(context){
+
+// }

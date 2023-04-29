@@ -1,0 +1,58 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 24rem;
+}
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  cursor: pointer;
+
+  & p {
+    margin-right: 1.5rem;
+    transition: color 0.25s ease-in-out;
+  }
+
+  &:hover {
+    & > p {
+      color: var(--color-primary);
+    }
+    & > button > * {
+      background-color: var(--color-primary);
+    }
+  }
+}
+
+.filters-wrapper {
+  height: 0;
+
+  transition: height 0.5s ease;
+  &.active {
+    height: 100%;
+  }
+
+  & .hr {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    border-top: 2px solid var(--color-black);
+    z-index: 2;
+  }
+
+  & .filters {
+    height: 100%;
+    width: 100%;
+
+    border-radius: 0 0 10px 10px;
+
+    background-color: var(--color-light-gray);
+
+    overflow: hidden;
+
+    & > p {
+      margin: 2rem;
+    }
+  }
+}

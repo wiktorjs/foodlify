@@ -7,22 +7,16 @@ import {
 } from '@phosphor-icons/react';
 import classes from './MainNavigation.module.scss';
 import { useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
+
+import ThemeSwitch from './ThemeSwitch';
+import Searchbar from './Searchbar';
 
 export default function MainNavigation() {
-  // todo use CSSTransition to animate theme icon
-
-  const [isLightTheme, setIsLightTheme] = useState(true);
-  
-  const changeThemeHandler = (e) => {
-    e.preventDefault();
-    setIsLightTheme(prevState => !prevState);
-  };
-
   return (
     <nav className={classes.navigation}>
       <p className={classes.logo}>Foodlify</p>
 
+      <Searchbar />
       <ul>
         <li>
           <a href="#" className={classes.link}>
@@ -37,16 +31,8 @@ export default function MainNavigation() {
         </li>
 
         <li>
-          <a
-            href="#"
-            onClick={changeThemeHandler}
-            className={classes['icon-box']}
-          >
-            {isLightTheme ? (
-              <Sun weight="bold" className={classes.icon} />
-            ) : (
-              <MoonStars weight="bold" className={classes.icon} />
-            )}
+          <a href="#" className={classes['icon-box']}>
+            <ThemeSwitch />
           </a>
         </li>
 

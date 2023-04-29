@@ -1,0 +1,153 @@
+@import '../../styles/mixins';
+@import '../../styles/variables';
+
+.wrapper {
+  background-color: var(--color-light-gray);
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+  cursor: pointer;
+
+  transition: transform, box-shadow, 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    & .img {
+      border-color: $color-primary;
+    }
+  }
+}
+
+.img {
+  width: 50%;
+  border: 3px solid $color-black;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  object-fit: contain;
+  transform: translate(50%, -50%);
+  border-radius: 100px;
+  background-color: black;
+
+  transition: border-color 0.3s ease;
+}
+
+// | Text wrapper
+.content {
+  margin-top: -6rem;
+  padding: 2rem;
+}
+.details {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+
+  &--additional {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    & span {
+      font-weight: 400;
+    }
+  }
+
+  // | Recipe name
+  & p {
+    font-weight: 600;
+  }
+}
+
+.action-box {
+  display: flex;
+  align-items: center;
+
+  & p {
+    margin-right: auto;
+    padding: 1.5rem;
+    background-color: rgba($color-primary, 0.6);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba($color-black, 0.8);
+    letter-spacing: 1px;
+  }
+}
+
+.icon {
+  height: 2rem;
+  width: 2rem;
+
+  &--action {
+    height: 2.5rem;
+    width: 2.5rem;
+    cursor: pointer;
+
+    // | Hear icon
+    &:first-child {
+      margin-right: 1rem;
+      transition: fill 0.3s ease;
+      &:hover {
+        fill: var(--color-primary);
+      }
+    }
+  }
+}
+
+/*
+.content {
+  padding: 2rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  margin-top: -6rem;
+
+  & > * {
+    margin: 0 1rem;
+  }
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  &--additional {
+    & .time {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+// ! Main category tag, cart and bookmark
+.action-box {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  & .category {
+    margin-right: auto;
+    padding: 1.5rem;
+    background-color: rgba($color-primary, 0.6);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba($color-black, 0.8);
+    letter-spacing: 1px;
+  }
+}
+
+.icon {
+  display: inline-block;
+  cursor: pointer;
+  height: 2.5rem;
+  width: 2.5rem;
+
+  &:hover {
+    fill: var(--color-primary);
+  }
+}
+*/
