@@ -6,7 +6,6 @@ import {
   User,
 } from '@phosphor-icons/react';
 import classes from './MainNavigation.module.scss';
-import { useState } from 'react';
 
 import ThemeSwitch from './ThemeSwitch';
 import Searchbar from './Searchbar';

@@ -13,7 +13,7 @@ export default function Filters() {
 
       <div className={classes.menu} onClick={openButtonHandler}>
         <NavigationButton active={buttonIsActive} />
-        <p>{!buttonIsActive ? 'Show' : 'Hide'} all categories</p>
+        <p>{!buttonIsActive ? 'See' : 'Hide'} all categories</p>
       </div>
 
       <div

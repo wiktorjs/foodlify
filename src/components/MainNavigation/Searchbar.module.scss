@@ -8,13 +8,14 @@
   align-items: center;
   border-radius: 30px;
   transition: border-radius 0.5s ease;
-  background: #fff;
+  background-color: rgba(#fff, .7);
 
   padding-inline: 2rem;
   border-bottom: 2px solid transparent;
 
   transition: border-bottom 0.5s ease-out;
   will-change: border-bottom;
+  outline: 1px solid rgba(#000, .1);
 }
 
 .form:has(.input:focus) {
