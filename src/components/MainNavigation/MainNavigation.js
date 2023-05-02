@@ -8,14 +8,12 @@ import {
 import classes from './MainNavigation.module.scss';
 
 import ThemeSwitch from './ThemeSwitch';
-import Searchbar from './Searchbar';
 
 export default function MainNavigation() {
   return (
     <nav className={classes.navigation}>
       <p className={classes.logo}>Foodlify</p>
 
-      <Searchbar />
       <ul>
         <li>
           <a href="#" className={classes.link}>

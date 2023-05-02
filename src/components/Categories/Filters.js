@@ -1,34 +1,40 @@
 import { useState } from 'react';
 import classes from './Filters.module.scss';
 import NavigationButton from '../UI/NavigationButton';
-export default function Filters() {
+export default function Filters({mobile}) {
   const [buttonIsActive, setButtonIsActive] = useState(false);
-
+  console.log(mobile)
   const openButtonHandler = () => {
     setButtonIsActive((prevState) => !prevState);
   };
 
   return (
-    <div className={classes.wrapper}>
+    <>
+      <div className={classes.wrapper}>
+        <div className={classes.menu} onClick={openButtonHandler}>
+          <NavigationButton active={buttonIsActive} />
+           <p>Filters</p>
 
-      <div className={classes.menu} onClick={openButtonHandler}>
-        <NavigationButton active={buttonIsActive} />
-        <p>{!buttonIsActive ? 'See' : 'Hide'} all categories</p>
-      </div>
+        </div>
 
-      <div
-        className={`${classes['filters-wrapper']} ${
-          buttonIsActive ? classes.active : ''
-        }`}
-      >
-        <hr className={classes.hr} />
-        <div className={classes.filters}>
-          <p>Test</p>
-          <p>Test</p>
-          <p>Test</p>
+        <div
+          className={`${classes['filters-wrapper']} ${
+            buttonIsActive ? classes.active : ''
+          }`}
+        >
+          <hr className={classes.hr} />
+          <div className={classes.filters}>
+            <p>Test</p>
+            <p>Test</p>
+            <p>Test</p>
+            <p>Test</p>
+            <p>Test</p>
+            <p>Test</p>
+          </div>
         </div>
       </div>
 
-    </div>
+
+    </>
   );
 }

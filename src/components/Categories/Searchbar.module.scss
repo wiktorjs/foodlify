@@ -1,8 +1,13 @@
+@import "../../styles/mixins";
 /* styling of whole input container */
 .form {
+  align-self: center;
   position: relative;
-  width: 30%;
-  height: 60%;
+  width: 50%;
+  margin: 3.5rem auto 0;
+
+  grid-row: 2;
+  grid-column: 2;
 
   display: flex;
   align-items: center;
@@ -16,6 +21,15 @@
   transition: border-bottom 0.5s ease-out;
   will-change: border-bottom;
   outline: 1px solid rgba(#000, .1);
+
+  @include respond(tab-port) {
+    width: 95%;
+    margin: 0;
+    align-self: center;
+    justify-self: center;
+  }
+
+
 }
 
 .form:has(.input:focus) {
@@ -31,7 +45,7 @@
   height: 100%;
 
   border: 1px solid transparent;
-  padding: 1rem 1rem 1rem;
+  padding: 1rem 0 1rem 1rem;
   &::-webkit-input-placeholder {
     font-family: inherit;
     font-size: 1.6rem;

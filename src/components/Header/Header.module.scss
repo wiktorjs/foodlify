@@ -1,3 +1,4 @@
+@import "../../styles/mixins";
 .header::before {
   content: '';
   background-image: linear-gradient(
@@ -30,6 +31,10 @@
 
 
   overflow: hidden;
+
+  @include respond(tab-port) {
+    height: auto;
+  }
 }
 
 .content {
@@ -76,6 +81,11 @@
       }
     }
   }
+
+
+  @include respond(tab-port) {
+    margin-bottom: 0;
+  }
 }
 
 .image {
@@ -90,5 +100,10 @@
     object-fit: contain;
 
     filter: brightness(0.9);
+  }
+
+
+  @include respond(tab-port) {
+    display: none;
   }
 }

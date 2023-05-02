@@ -1,0 +1,43 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+.pagination {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+ grid-column: 2;
+
+  .pageNumber {
+    height: 2rem; width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.4rem;
+
+    border-radius: 100px;
+    border: 1px solid #ccc;
+    cursor: pointer;;
+    margin: 0 5px;
+
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: rgba($color-primary, .2);
+    }
+
+    &.active {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #fff;
+    }
+
+    @include respond(tab-port) {
+      padding: 1.8rem;
+      margin-bottom: 1rem;
+    }
+  }
+  @include respond(tab-port) {
+    grid-column: 1/-1;
+  }
+}

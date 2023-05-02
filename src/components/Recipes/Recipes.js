@@ -14,6 +14,7 @@ export default function Recipes({ recipes }) {
             servings={recipe.yield}
             time={recipe.totalTime}
             kcal={recipe.calories}
+            category={recipe.dishType[0]?.toUpperCase()}
           />
         );
       })}

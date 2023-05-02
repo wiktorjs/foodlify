@@ -11,7 +11,7 @@ export default function Searchbar() {
 
   const userSearchHandler = (e) => {
     e.preventDefault();
-    const searchTerm = (userInput.current.value.trim()).toLowerCase();
+    const searchTerm = (userInput.current.value.trim()).toLowerCase().split(' ').join('+');
     
     userInput.current.value = "";
     userInput.current.blur();

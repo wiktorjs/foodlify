@@ -1,3 +1,4 @@
+@import "../../styles/mixins";
 .button {
   //   visibility: hidden;
   //   opacity: 0;
@@ -37,23 +38,25 @@
     will-change: transform, top, width, opacity, background-color;
   }
 
-  //   @include respond(phone) {
-  //     visibility: visible;
-  //     opacity: 1;
-  //   }
-
   border: none;
 
-  &:focus {
+  &:hover {
     outline: none;
     & > * {
       background-color: var(--color-primary);
     }
   }
 
-  &:active {
-    & > * {
-      background-color: var(--color-black);
+
+  &.mobile {
+    display: none;
+  
+    @include respond(phone) {
+      z-index: 999;
+      display: inline-block;
+      position: sticky;
+      top: 3rem;
+      left: -3rem;
     }
   }
 }
@@ -86,3 +89,5 @@
     top: 50%;
   }
 }
+
+

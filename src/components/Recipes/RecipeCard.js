@@ -1,7 +1,7 @@
 import { Clock, Fire, Heart, ShoppingCart, User } from '@phosphor-icons/react';
 import classes from './RecipeCard.module.scss';
 import { useState } from 'react';
-export default function RecipeCard({ img, name, servings, time, kcal }) {
+export default function RecipeCard({ img, name, servings, time, kcal, category }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const addBookmarkHandler = () => setIsBookmarked((prevState) => !prevState);
@@ -34,7 +34,7 @@ export default function RecipeCard({ img, name, servings, time, kcal }) {
         </div>
 
         <div className={classes['action-box']}>
-          <p> MAIN CATEGORY </p>
+          <p> {category.length <= 11 ? category : `${category.slice(0, 11)}...`} </p>
           <div className={classes['details--additional']}>
             <Heart
               onClick={addBookmarkHandler}

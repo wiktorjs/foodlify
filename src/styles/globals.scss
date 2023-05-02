@@ -38,6 +38,10 @@ body {
 
   color: var(--color-black);
   background-color: var(--color-white);
+
+  @include respond(tab-port) {
+    padding: 0rem;
+  }
 }
 
 

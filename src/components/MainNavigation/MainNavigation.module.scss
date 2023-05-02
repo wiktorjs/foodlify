@@ -1,7 +1,8 @@
+@import '../../styles/mixins';
 .navigation {
-  position: sticky;
-  top: 0;
-  left: 3rem;
+  // position: sticky;
+  // top: 0;
+  // left: 3rem;
 
   display: flex;
   justify-content: space-between;
@@ -64,6 +65,10 @@
         }
       }
     }
+  }
+
+  @include respond(tab-port) {
+    display: none;
   }
 }
 
