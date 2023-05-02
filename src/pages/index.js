@@ -1,14 +1,11 @@
 import Head from 'next/head';
 
 import classes from '../styles/Home.module.scss';
-import Header from '@/components/Header/Header';
-import MainNavigation from '@/components/MainNavigation/MainNavigation';
-import Categories from '@/components/Categories/Categories';
-import { Provider } from 'react-redux';
-import { store } from '@/store/store';
+import Header from '@/components/Home/Header/Header';
+import MainNavigation from '@/components/UI/MainNavigation/MainNavigation';
+import Categories from '@/components/Home/Categories/Categories';
 
 export default function Home() {
-
   return (
     <>
       <Head>
@@ -17,18 +14,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Provider store={store}>
+
       <MainNavigation />
       <Header />
 
-        <main className={classes.main}>
-          <Categories  />
-        </main>
-      </Provider>
+      <main className={classes.main}>
+        <Categories />
+      </main>
     </>
   );
 }
-
 
 // export const getStaticProps = function(context){
 

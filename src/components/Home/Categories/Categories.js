@@ -3,19 +3,18 @@ import classes from './Categories.module.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setRecipes, updateRecipes } from '@/store/recipes-slice';
-import useHttp from '../../hooks/use-http';
+import useHttp from '../../../hooks/use-http';
 
 import Filters from './Filters';
 import MainCategories from './MainCategories';
 import Recipes from '../Recipes/Recipes';
-import Loader from '../UI/Loader';
+import Loader from '../../UI/Loader';
 import NoRecipes from '../Recipes/NoRecipes';
 import Searchbar from './Searchbar';
-import Pagination from '../UI/Pagination';
+import Pagination from '../../UI/Pagination';
 import { RECIPES_PER_PAGE } from '@/store/config';
 
 export default function Categories() {
-  const [isMobile, setIsMobile] = useState(false);
   const [pageRecipes, setPageRecipes] = useState({ recipes: null, page: 1 });
   const stateRecipes = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
@@ -95,10 +94,6 @@ export default function Categories() {
     displayPage();
   }, [stateRecipes.userSearch]);
 
-  useEffect(() => {
-    setIsMobile(window.matchMedia('(max-width: 900px)').matches);
-  }, []);
-
   return (
     <section className={classes.section}>
       <Filters />
@@ -112,7 +107,7 @@ export default function Categories() {
             <NoRecipes message={error} />
           )}
           {isLoading && !error && <Loader />}
-          {!isLoading && !error && <Recipes recipes={pageRecipes.recipes} />}
+          {!isLoading && !error && stateRecipes.recipes.length !== 0 && <Recipes recipes={pageRecipes.recipes} />}
         </div>
 
         {!isLoading && pageRecipes?.recipes && (

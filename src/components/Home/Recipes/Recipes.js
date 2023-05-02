@@ -1,14 +1,14 @@
 import RecipeCard from './RecipeCard';
 
 export default function Recipes({ recipes }) {
-
   return (
     <>
       {recipes?.map((recipeDetails) => {
-        const { recipe } = recipeDetails;
+        const { recipe, id } = recipeDetails;
         return (
           <RecipeCard
-            key={Math.random().toString().slice(2, 10)}
+            key={id}
+            id={id}
             img={recipe.images.SMALL.url}
             name={recipe.label}
             servings={recipe.yield}

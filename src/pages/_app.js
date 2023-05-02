@@ -3,6 +3,8 @@ import '@/styles/typography.scss';
 import '@/styles/cssvariables.scss';
 
 import { Montserrat } from 'next/font/google';
+import { store } from '@/store/store';
+import { Provider } from 'react-redux';
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function App({ Component, pageProps }) {
@@ -15,7 +17,9 @@ export default function App({ Component, pageProps }) {
           }
         `}
       </style>
-      <Component {...pageProps} />
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
     </>
   );
 }

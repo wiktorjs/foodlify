@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import classes from './Filters.module.scss';
-import NavigationButton from '../UI/NavigationButton';
+import NavigationButton from '../../UI/NavigationButton';
 export default function Filters({mobile}) {
   const [buttonIsActive, setButtonIsActive] = useState(false);
-  console.log(mobile)
   const openButtonHandler = () => {
     setButtonIsActive((prevState) => !prevState);
   };

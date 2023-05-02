@@ -1,13 +1,14 @@
 import { Clock, Fire, Heart, ShoppingCart, User } from '@phosphor-icons/react';
 import classes from './RecipeCard.module.scss';
 import { useState } from 'react';
-export default function RecipeCard({ img, name, servings, time, kcal, category }) {
+import Link from 'next/link';
+export default function RecipeCard({ id, img, name, servings, time, kcal, category }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const addBookmarkHandler = () => setIsBookmarked((prevState) => !prevState);
 
   return (
-    <div className={classes.wrapper}>
+    <Link href={`/recipes/${id}`} className={classes.wrapper}>
       <img src={img} alt={name} className={classes.img} />
       
       <div className={classes.content}>
@@ -46,6 +47,6 @@ export default function RecipeCard({ img, name, servings, time, kcal, category }
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
