@@ -8,11 +8,12 @@ import {
 import classes from './MainNavigation.module.scss';
 
 import ThemeSwitch from './ThemeSwitch';
+import Link from 'next/link';
 
 export default function MainNavigation() {
   return (
     <nav className={classes.navigation}>
-      <p className={classes.logo}>Foodlify</p>
+      <Link className={classes.logo} href='/' >Foodlify</Link>
 
       <ul>
         <li>

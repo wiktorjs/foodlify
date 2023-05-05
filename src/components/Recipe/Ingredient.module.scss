@@ -9,10 +9,12 @@
   position: relative;
   height: 3rem;
   width: 3rem;
+  display: inline-block;
 
   & > * {
     position: absolute;
     top: 0;
+
     height: 100%;
     width: 100%;
   }

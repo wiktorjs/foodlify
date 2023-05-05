@@ -6,6 +6,7 @@ export default function RecipeCard({ id, img, name, servings, time, kcal, catego
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const addBookmarkHandler = () => setIsBookmarked((prevState) => !prevState);
+  const stopPropagation = e => e.preventDefault();
 
   return (
     <Link href={`/recipes/${id}`} className={classes.wrapper}>
@@ -36,7 +37,7 @@ export default function RecipeCard({ id, img, name, servings, time, kcal, catego
 
         <div className={classes['action-box']}>
           <p> {category.length <= 11 ? category : `${category.slice(0, 11)}...`} </p>
-          <div className={classes['details--additional']}>
+          <div className={classes['details--additional']} onClick={stopPropagation}>
             <Heart
               onClick={addBookmarkHandler}
               className={classes['icon--action']}

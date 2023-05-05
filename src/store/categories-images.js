@@ -7,9 +7,9 @@ import dinnerImg from '../img/dinner.jpg';
 
 export const CATEGORIES = [
   { name: 'Vegan', img: vegetablesImg },
-  { name: 'Nuts', img: nutsImg },
-  { name: 'Keto', img: ketoImg },
-  { name: 'Breakfast', img: breakfastImg },
-  { name: 'Lunch', img: lunchImg },
-  { name: 'Dinner', img: dinnerImg },
+  { name: 'Peanut Free', img: nutsImg },
+  { name: 'Soy Free', img: ketoImg },
+  { name: 'Egg Free', img: breakfastImg },
+  { name: 'Pork Free', img: lunchImg },
+  { name: 'Celery Free', img: dinnerImg },
 ];

@@ -21,6 +21,7 @@ export default function useHttp() {
 
       const res = await fetch(fetchQuery[0], fetchQuery[1]);
 
+      if (!res.ok) throw new Error(`Failed to fetch data :(. Please try again later! (${res.status})`); 
       const data = await res.json();
 
       //  If there is no data.count or it's empty throw an error stating that there were no recipes found
@@ -33,7 +34,7 @@ export default function useHttp() {
       //  Generate custom id for each recipe
       const recipes = data.hits.map((recipe) => ({
         ...recipe,
-        id: generateRandomId(20),
+        id: recipe.recipe.uri.split('_')[1],
       }));
 
       const recipesObj = {
@@ -52,4 +53,3 @@ export default function useHttp() {
 
   return { isLoading, fetchData, error };
 }
-

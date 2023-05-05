@@ -1,18 +1,14 @@
 import { BowlFood, ForkKnife, Shrimp, Warning } from '@phosphor-icons/react';
 import classes from './NoRecipes.module.scss';
-import { useSelector } from 'react-redux';
 
-export default function NoRecipes() {
-  const { userSearch, recipes } = useSelector((state) => state.recipes);
-
-  const noRecipes = userSearch && recipes?.length === 0;
+export default function NoRecipes({error}) {
 
   return (
-    <div className={`${classes.wrapper} ${noRecipes ? classes.error : ''}`}>
+    <div className={`${classes.wrapper} ${error ? classes.error : ''}`}>
       <h2 className={classes.logo}>Foodlify</h2>
 
       <div className={classes.content}>
-        {noRecipes && (
+        {error && (
           <Warning
             className={classes.icon}
             weight="duotone"
@@ -20,15 +16,15 @@ export default function NoRecipes() {
         )}
 
         <p className={classes.text}>
-          {noRecipes && <span>Error: </span>}
-          {noRecipes
-            ? 'No recipes found. Try searching for something else!'
+          {error && <span>Error: </span>}
+          {error
+            ? error
             : 'Start searching to discover amazing recipes!'}
         </p>
       </div>
 
       <div className={classes.icons}>
-        {!noRecipes && (
+        {!error && (
           <>
             <ForkKnife className={classes.icon} weight="light" />
             <BowlFood className={classes.icon} weight="light" />

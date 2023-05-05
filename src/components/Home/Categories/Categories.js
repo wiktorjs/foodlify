@@ -63,6 +63,7 @@ export default function Categories() {
 
     setPageRecipes({ page, recipes: [...recipes, ...recipesToAdd] });
   };
+
   const displayPage = function (page = 1) {
     // Conditionally define page recipes positions in the array, depending on which page the user is currently at
     const firstRecipe = page === 1 ? 0 : RECIPES_PER_PAGE * (page - 1);
@@ -94,17 +95,30 @@ export default function Categories() {
     displayPage();
   }, [stateRecipes.userSearch]);
 
+  useEffect(() => {
+    const {userSearch, userFilter} = stateRecipes
+    // | If there was no user search do not apply filter
+    if(!userSearch) return;
+
+    // | If the user filter is active, display 6 recipes that suit the filter
+    if(userFilter.active) setPageRecipes({page: 1, recipes: userFilter.details.results.slice(0, RECIPES_PER_PAGE)});
+
+    // | If the filter is disactivated show all loaded recipes
+    if(!userFilter.active) setPageRecipes({page: 1, recipes: stateRecipes.recipes.slice(0, RECIPES_PER_PAGE)})
+     
+    console.log(userFilter.details)
+  }, [stateRecipes.userFilter])  
+
   return (
-    <section className={classes.section}>
+    <section className={classes.section} id='#categories'>
       <Filters />
-      {/* <div className={classes.wrapper}> */}
         <MainCategories />
 
         <Searchbar />
 
         <div className={classes['recipes-box']}>
           {!isLoading && (error || stateRecipes.recipes.length === 0) && (
-            <NoRecipes message={error} />
+            <NoRecipes error={error} />
           )}
           {isLoading && !error && <Loader />}
           {!isLoading && !error && stateRecipes.recipes.length !== 0 && <Recipes recipes={pageRecipes.recipes} />}
@@ -113,11 +127,10 @@ export default function Categories() {
         {!isLoading && pageRecipes?.recipes && (
           <Pagination
             currentPage={pageRecipes.page}
-            totalPages={Math.ceil(stateRecipes.recipesCount / 6)}
+            totalPages={Math.ceil(stateRecipes.recipesCount / RECIPES_PER_PAGE)}
             onChange={displayPage}
           />
         )}
-      {/* </div> */}
     </section>
   );
 }

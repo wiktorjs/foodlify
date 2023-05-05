@@ -27,7 +27,7 @@ export default function Ingredient({ id, details }) {
         className={`${classes.label} ${checked ? classes.checked : ''}`}
         htmlFor={id}
       >
-        {details.text}
+        {details.text} ({details.weight}g)
       </label>
       
     </li>

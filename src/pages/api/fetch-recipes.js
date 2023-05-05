@@ -7,12 +7,12 @@ export default async function handler(req, res) {
     );
 
     if (!response.ok)
-      throw new Error('Failed to fetch data :(. Please try again!');
+      throw new Error('Request failed.');
     const data = await response.json();
 
     res.status(200).send(data);
 
   } catch (err) {
-    res.status(500).send({ error: err.message });
+    res.status(500).send({status: 500, error: err.message });
   }
 }

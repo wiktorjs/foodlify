@@ -1,0 +1,113 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+.details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0 6rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+
+  & > h2 {
+    margin-bottom: 1rem;
+    font-size: 3rem;
+
+    @media only screen and (max-width: 22.5em) {
+      font-size: 2.5rem;
+    }
+  }
+
+  & > hr {
+    width: 40%;
+    border: none;
+    height: 2px;
+    background-color: black;
+    margin-bottom: 3rem;
+  }
+
+  // ! Ingredients list
+  & > ul {
+    list-style: none;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(3, max-content);
+    align-items: center;
+
+    @include respond(tab-port) {
+      grid-template-columns: repeat(2, max-content);
+    }  
+    @include respond(phone) {
+      grid-template-columns: max-content;
+    }
+
+  }
+
+  // ! Recipe anchor
+  & > .link {
+    margin-top: 2rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    border-bottom: 2px solid var(--color-black);
+
+    transition: color, border-color, 0.2s ease;
+    will-change: color, border-color;
+
+    &:hover {
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+  }
+
+  p {
+    margin-bottom: 2rem;
+  }
+}
+
+// Time and calories
+.prep {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+// Macronutrients
+.macro {
+  display: flex;
+  gap: 1rem;
+  color: $color-black;
+}
+
+// Categories tags
+.categories {
+  margin-top: 2rem;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  p {
+    font-size: 2.2rem;
+    flex: 1 0 100%;
+  }
+  span {
+    display: inline-block;
+    margin: 1rem;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: rgba($color-primary, 0.7);
+
+    font-weight: 600;
+    color: $color-white;
+  }
+}
+
+.icon {
+  height: 3rem;
+  width: 3rem;
+}
