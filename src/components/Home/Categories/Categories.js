@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import classes from './Categories.module.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setRecipes, updateRecipes } from '@/store/recipes-slice';
+import recipesSlice, { setRecipes, updateRecipes } from '@/store/recipes-slice';
 import useHttp from '../../../hooks/use-http';
 
 import Filters from './Filters';
@@ -96,41 +96,44 @@ export default function Categories() {
   }, [stateRecipes.userSearch]);
 
   useEffect(() => {
-    const {userSearch, userFilter} = stateRecipes
+    const { userSearch, userFilter } = stateRecipes;
+    
     // | If there was no user search do not apply filter
     if(!userSearch) return;
 
     // | If the user filter is active, display 6 recipes that suit the filter
-    if(userFilter.active) setPageRecipes({page: 1, recipes: userFilter.details.results.slice(0, RECIPES_PER_PAGE)});
+    if(userFilter.active) setPageRecipes({page: 1, recipes: userFilter.recipes.slice(0, RECIPES_PER_PAGE)});
 
     // | If the filter is disactivated show all loaded recipes
     if(!userFilter.active) setPageRecipes({page: 1, recipes: stateRecipes.recipes.slice(0, RECIPES_PER_PAGE)})
      
-    console.log(userFilter.details)
-  }, [stateRecipes.userFilter])  
+
+  }, [stateRecipes.userFilter]);
 
   return (
-    <section className={classes.section} id='#categories'>
+    <section className={classes.section} id="#categories">
       <Filters />
-        <MainCategories />
+      <MainCategories />
 
-        <Searchbar />
+      <Searchbar />
 
-        <div className={classes['recipes-box']}>
-          {!isLoading && (error || stateRecipes.recipes.length === 0) && (
-            <NoRecipes error={error} />
-          )}
-          {isLoading && !error && <Loader />}
-          {!isLoading && !error && stateRecipes.recipes.length !== 0 && <Recipes recipes={pageRecipes.recipes} />}
-        </div>
-
-        {!isLoading && pageRecipes?.recipes && (
-          <Pagination
-            currentPage={pageRecipes.page}
-            totalPages={Math.ceil(stateRecipes.recipesCount / RECIPES_PER_PAGE)}
-            onChange={displayPage}
-          />
+      <div className={classes['recipes-box']}>
+        {!isLoading && (error || stateRecipes.recipes.length === 0) && (
+          <NoRecipes error={error} />
         )}
+        {isLoading && !error && <Loader />}
+        {!isLoading && !error && stateRecipes.recipes.length !== 0 && (
+          <Recipes recipes={pageRecipes.recipes} />
+        )}
+      </div>
+
+      {!isLoading && pageRecipes?.recipes && (
+        <Pagination
+          currentPage={pageRecipes.page}
+          totalPages={Math.ceil(stateRecipes.recipesCount / RECIPES_PER_PAGE)}
+          onChange={displayPage}
+        />
+      )}
     </section>
   );
 }

@@ -1,42 +1,38 @@
 import Image from 'next/image';
 import classes from './Category.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { setFilteredRecipes } from '@/store/recipes-slice';
+import React, { useEffect, useState } from 'react';
+import {setFilters } from '@/store/recipes-slice';
 
-export default function Category(props) {
+function Category(props) {
   const [filterActive, setFilterActive] = useState(false);
   const stateRecipes = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
 
-  const filterRecipesHandler = () => {
-    setFilterActive(prevState => !prevState)
-    // props.onClick();
-  };
+  const filterRecipesHandler = () => setFilterActive((prevState) => !prevState);
 
   useEffect(() => {
-
-    if(!filterActive) {
-      dispatch(setFilteredRecipes({type: 'RESET'}));
-      return
-    };
-
-    const filter = props.name.split(' ').join('-');
-    const results = stateRecipes.recipes.filter((recipe) =>
-      recipe.recipe.healthLabels.find((label) => label === filter)
-    );
-
-    const filterObj = {
-      active: true,
-      details: { filter, results },
+    if (!filterActive) {
+      dispatch(setFilters({ type: 'REMOVE', id: props.id }));
+      return;
     }
+    
+    const filter = { name: props.name.split(' ').join('-'), id: props.id };
+    
+    // const results = stateRecipes.recipes.filter((recipe) =>
+    // recipe.recipe.healthLabels.find((label) => label === details.name)
+    // );
+    
+    dispatch(setFilters({ type: 'ADD', filter }));
+  }, [filterActive]);
 
-    dispatch(setFilteredRecipes({type: 'FILTER', filter: filterObj})); 
-
-  }, [filterActive])
+  
 
   return (
-    <div className={`${classes.category} ${filterActive ? classes.active : ''}`} onClick={filterRecipesHandler}>
+    <div
+      className={`${classes.category} ${filterActive ? classes.active : ''}`}
+      onClick={filterRecipesHandler}
+    >
       <Image
         className={classes.img}
         src={props.src.src}
@@ -48,3 +44,5 @@ export default function Category(props) {
     </div>
   );
 }
+
+export default React.memo(Category);

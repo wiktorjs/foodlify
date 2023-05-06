@@ -8,7 +8,7 @@ export default function MainCategories() {
   return (
     <div className={classes['categories-box']}>
       {CATEGORIES.map((category, i) => (
-        <Category key={i} src={category.img} name={category.name} />
+        <Category key={i} id={i} src={category.img} name={category.name} />
       ))}
     </div>
   );
