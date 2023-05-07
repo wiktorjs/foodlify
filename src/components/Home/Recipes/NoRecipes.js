@@ -1,25 +1,19 @@
 import { BowlFood, ForkKnife, Shrimp, Warning } from '@phosphor-icons/react';
 import classes from './NoRecipes.module.scss';
 
-export default function NoRecipes({error}) {
-
+export default function NoRecipes({ error, message}) {
   return (
     <div className={`${classes.wrapper} ${error ? classes.error : ''}`}>
       <h2 className={classes.logo}>Foodlify</h2>
 
       <div className={classes.content}>
-        {error && (
-          <Warning
-            className={classes.icon}
-            weight="duotone"
-          />
-        )}
+        {error && <Warning className={classes.icon} weight="duotone" />}
 
         <p className={classes.text}>
           {error && <span>Error: </span>}
-          {error
-            ? error
-            : 'Start searching to discover amazing recipes!'}
+          {error && error}
+          {message && message}
+          {!error && !message && 'Start searching to discover amazing recipes!'}
         </p>
       </div>
 

@@ -46,7 +46,7 @@ export default function Categories() {
 
     // Get next recipes from the API
     const nextPageUrl = stateRecipes.pages.next.href;
-    const data = await fetchData(undefined, nextPageUrl);
+    const data = await fetchData(null, nextPageUrl);
     const fetchedRecipes = data.recipes;
 
     // Update recipes state with new recipes and link to the next page
@@ -55,6 +55,7 @@ export default function Categories() {
     // Determine how many recipies from the recently fetched data should get added to a page. Ex. if there are already 2 recipes visible then, if there should be 6 recipes per page, we need to add 4 of them.
     const leftRecipes =
       RECIPES_PER_PAGE - (stateRecipes.recipes.length % RECIPES_PER_PAGE);
+
     // Extract those recipes. If a page would've been empty, display 6 recipes from the newly fetched data
     const recipesToAdd = fetchedRecipes.slice(
       0,
@@ -65,18 +66,21 @@ export default function Categories() {
   };
 
   const displayPage = function (page = 1) {
+    const { userFilter } = stateRecipes;
     // Conditionally define page recipes positions in the array, depending on which page the user is currently at
     const firstRecipe = page === 1 ? 0 : RECIPES_PER_PAGE * (page - 1);
     const lastRecipe = RECIPES_PER_PAGE * page;
 
     // Extract this recipes from state
-    const recipes = stateRecipes.recipes.slice(firstRecipe, lastRecipe);
+    const recipes = userFilter.active
+      ? userFilter.recipes.slice(firstRecipe, lastRecipe)
+      : stateRecipes.recipes.slice(firstRecipe, lastRecipe);
+    //
 
-    if (recipes.length < 6 && page !== 1) {
+    if (!userFilter.active && recipes.length < 6 && page !== 1) {
       loadRecipes(true, { recipes, page });
       return;
     }
-
     // Display them on a page
     setPageRecipes({ recipes, page });
   };
@@ -97,17 +101,24 @@ export default function Categories() {
 
   useEffect(() => {
     const { userSearch, userFilter } = stateRecipes;
-    
-    // | If there was no user search do not apply filter
-    if(!userSearch) return;
+    // console.log(userFilter)
+    //  If there was no user search do not apply filter
+    if (!userSearch) return;
 
-    // | If the user filter is active, display 6 recipes that suit the filter
-    if(userFilter.active) setPageRecipes({page: 1, recipes: userFilter.recipes.slice(0, RECIPES_PER_PAGE)});
+    //  If the user filter is active, display 6 recipes that suit the filter
+    if (userFilter.active)
+      setPageRecipes({
+        page: 1,
+        recipes: userFilter.recipes.slice(0, RECIPES_PER_PAGE),
+      });
 
-    // | If the filter is disactivated show all loaded recipes
-    if(!userFilter.active) setPageRecipes({page: 1, recipes: stateRecipes.recipes.slice(0, RECIPES_PER_PAGE)})
-     
-
+    //  If the filter is deactivated show all loaded recipes
+    if (!userFilter.active)
+      setPageRecipes({
+        page: 1,
+        recipes: stateRecipes.recipes.slice(0, RECIPES_PER_PAGE),
+      });
+    //
   }, [stateRecipes.userFilter]);
 
   return (
@@ -118,10 +129,14 @@ export default function Categories() {
       <Searchbar />
 
       <div className={classes['recipes-box']}>
+        {isLoading && !error && <Loader />}
         {!isLoading && (error || stateRecipes.recipes.length === 0) && (
           <NoRecipes error={error} />
         )}
-        {isLoading && !error && <Loader />}
+        {stateRecipes.userFilter.active &&
+          stateRecipes.userFilter.recipes.length === 0 && (
+            <NoRecipes message={'No recipes with set criteria found. Try applying other filters!'} />
+          )}
         {!isLoading && !error && stateRecipes.recipes.length !== 0 && (
           <Recipes recipes={pageRecipes.recipes} />
         )}
@@ -130,7 +145,11 @@ export default function Categories() {
       {!isLoading && pageRecipes?.recipes && (
         <Pagination
           currentPage={pageRecipes.page}
-          totalPages={Math.ceil(stateRecipes.recipesCount / RECIPES_PER_PAGE)}
+          totalPages={Math.ceil(
+            !stateRecipes.userFilter.active
+              ? stateRecipes.recipesCount / RECIPES_PER_PAGE
+              : stateRecipes.userFilter.recipes.length / RECIPES_PER_PAGE
+          )}
           onChange={displayPage}
         />
       )}

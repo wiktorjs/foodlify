@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import classes from './Details.module.scss';
 import { Clock, Fire } from '@phosphor-icons/react';
-import Ingredient from './Ingredient';
 import { adjustPortion, convertIngredients } from '@/utils/convert-ingredients';
 import Servings from './Servings';
+import ListItem from '../UI/ListItem';
 
 export default function Details(props) {
   const {
@@ -53,7 +53,7 @@ export default function Details(props) {
 
         <ul>
           {ingredients.map((ingredient, i) => (
-            <Ingredient key={i} id={i} details={ingredient} />
+            <ListItem key={i} id={i} type='INGREDIENT'>{ingredient.text} ({ingredient.weight}g)</ListItem>
           ))}
         </ul>
         <a className={classes.link} href={url} target="_blank">

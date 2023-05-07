@@ -60,17 +60,34 @@
   & .filters {
     height: 99%;
     width: 100%;
+    padding: 2rem 2rem 0;
+    list-style: none;
 
     border-radius: 0 0 10px 10px;
 
     background-color: var(--color-light-gray);
 
-    overflow: hidden;
+    overflow: auto;
 
-    & > p {
-      margin: 2rem;
+    display: flex;
+    flex-direction: column;
+
+    & li:last-of-type {
+      cursor: pointer;
+      align-self: center;
+      margin-top: 1rem;
+      padding-bottom: .2rem;
+      border-bottom: 1px solid currentColor;
+      font-weight: 600;
+
+      transition: color, border-color, .2s ease;
+      will-change: color, border-color;
+
+      &:hover {
+        color: var(--color-primary);
+      }
     }
-  
+    
   }
 
   @include respond(tab-port){

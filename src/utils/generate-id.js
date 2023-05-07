@@ -1,4 +1,4 @@
-export default function generateRandomId(length) {
+export default function generateId(length) {
   let result = '';
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

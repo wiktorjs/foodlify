@@ -1,13 +1,13 @@
 import classes from './Categories.module.scss';
-import { CATEGORIES } from "@/store/categories-images";
-import Category from "./Category";
-import { useState } from 'react';
+import { CATEGORIES } from '@/store/categories';
+import Category from './Category';
 
 export default function MainCategories() {
+  const mainCategories = CATEGORIES.slice(0, 6);
 
   return (
     <div className={classes['categories-box']}>
-      {CATEGORIES.map((category, i) => (
+      {mainCategories.map((category, i) => (
         <Category key={i} id={i} src={category.img} name={category.name} />
       ))}
     </div>

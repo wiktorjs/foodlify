@@ -2,32 +2,20 @@ import Image from 'next/image';
 import classes from './Category.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
-import {setFilters } from '@/store/recipes-slice';
+import { setFilters } from '@/store/recipes-slice';
 
 function Category(props) {
-  const [filterActive, setFilterActive] = useState(false);
-  const stateRecipes = useSelector((state) => state.recipes);
+  const { userFilter } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
 
-  const filterRecipesHandler = () => setFilterActive((prevState) => !prevState);
+  const filterName = props.name.split(' ').join('-');
+  const filterActive = userFilter.filters.find(
+    (filter) => filter.name === filterName
+  );
 
-  useEffect(() => {
-    if (!filterActive) {
-      dispatch(setFilters({ type: 'REMOVE', id: props.id }));
-      return;
-    }
-    
-    const filter = { name: props.name.split(' ').join('-'), id: props.id };
-    
-    // const results = stateRecipes.recipes.filter((recipe) =>
-    // recipe.recipe.healthLabels.find((label) => label === details.name)
-    // );
-    
-    dispatch(setFilters({ type: 'ADD', filter }));
-  }, [filterActive]);
-
-  
-
+  const filterRecipesHandler = () =>
+    dispatch(setFilters({ name: filterName, id: props.id }));
+  //
   return (
     <div
       className={`${classes.category} ${filterActive ? classes.active : ''}`}

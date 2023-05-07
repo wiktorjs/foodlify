@@ -36,17 +36,18 @@ export const recipesSlice = createSlice({
     setFilters: (state, action) => {
       const { type } = action.payload;
 
-      if (type === 'ADD') {
-        const { filter } = action.payload;
-        state.userFilter.filters.push(filter);
+      if(type === 'RESET') {
+        state.userFilter = initialState.userFilter;
+        return;
       }
 
-      if (type === 'REMOVE') {
-        const { id } = action.payload;
-        state.userFilter.filters = state.userFilter.filters.filter(
-          (filter) => filter.id !== id
-        );
-      }
+      const newFilter = action.payload;
+      const filterExists = state.userFilter.filters.find(filter => filter.id === newFilter.id);
+
+      if(filterExists)  state.userFilter.filters = state.userFilter.filters.filter(
+        (filter) => filter !== filterExists
+      )
+      if(!filterExists) state.userFilter.filters.push(newFilter);
 
       // Go through every fetched recipe
       state.userFilter.recipes = state.recipes.filter((recipe) =>
@@ -55,6 +56,8 @@ export const recipesSlice = createSlice({
           recipe.recipe.healthLabels.includes(filter.name)
         )
       );
+
+      state.userFilter.active = state.userFilter.filters.length > 0
     },
   },
 });
