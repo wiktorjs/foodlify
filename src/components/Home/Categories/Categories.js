@@ -24,7 +24,7 @@ export default function Categories() {
   const loadRecipes = async function (nextPage = false, currentPage) {
     // | New search logic
     if (!nextPage) {
-      const data = await fetchData(stateRecipes.userSearch);
+      const data = await fetchData({query: stateRecipes.userSearch, type: 'search'});
       if (!data) return;
 
       const fetchedRecipes = data.recipes;
@@ -46,7 +46,7 @@ export default function Categories() {
 
     // Get next recipes from the API
     const nextPageUrl = stateRecipes.pages.next.href;
-    const data = await fetchData(null, nextPageUrl);
+    const data = await fetchData(null, null, nextPageUrl);
     const fetchedRecipes = data.recipes;
 
     // Update recipes state with new recipes and link to the next page
@@ -127,7 +127,7 @@ export default function Categories() {
         {!isLoading && (error || stateRecipes.recipes.length === 0) && (
           <NoRecipes error={error} />
         )}
-        {stateRecipes.userFilter.active &&
+        {!isLoading && !error && stateRecipes.userFilter.active &&
           stateRecipes.userFilter.recipes.length === 0 && (
             <NoRecipes
               message={

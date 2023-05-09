@@ -6,7 +6,6 @@ import { setUserSearch } from '@/store/recipes-slice';
 
 export default function Searchbar() {
   const userInput = useRef();
-  const stateRecipes = useSelector(state => state.recipes);
   const dispatch = useDispatch();
 
   const userSearchHandler = (e) => {
@@ -17,8 +16,9 @@ export default function Searchbar() {
     userInput.current.blur();
     
     // If the search term is empty or it's the search that user has already entered as a latest query, return
-    if (searchTerm.length <= 0 || stateRecipes.userSearch === searchTerm) return;
-    
+    // if (searchTerm.length <= 0 || stateRecipes.userSearch === searchTerm) return;
+    if(searchTerm.length <=0) return;
+
     dispatch(setUserSearch(searchTerm));
 
   }

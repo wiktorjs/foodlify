@@ -1,28 +1,49 @@
-import generateRandomId from '@/utils/generate-id';
 import { useState } from 'react';
 export default function useHttp() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const validateRequestLimit = function () {
+    // | Limiting request to one per minute
+    const timeBetweenRequests = 60 * 1000;
+    const currentTime = Date.now();
+    const lastRequestTime = localStorage.getItem('lastRequestTime') || 0;
+
+    if (currentTime - lastRequestTime < timeBetweenRequests)
+      throw new Error(
+        'Due to API limitations you can send only one request per minute. Please try again after this time has passed.'
+      );
+    //
+
+    localStorage.setItem('lastRequestTime', currentTime);
+  };
+
   const fetchData = async function (query, nextPage = null) {
     try {
       setError(null);
       setIsLoading(true);
+      validateRequestLimit();
 
-      const fetchQuery = nextPage
-        ? [nextPage, {}]
-        : [
-            '/api/fetch-recipes',
-            {
+      const fetchQuery = {
+        url: nextPage ? nextPage : '/api/fetch-recipes',
+        data: nextPage
+          ? {}
+          : {
               method: 'POST',
-              body: query,
+              body: JSON.stringify(query),
             },
-          ];
+      };
 
-      const res = await fetch(fetchQuery[0], fetchQuery[1]);
+      const res = await fetch(fetchQuery.url, fetchQuery.data);
 
-      if (!res.ok) throw new Error(`Failed to fetch data :(. Please try again later! (${res.status})`); 
+      if (!res.ok)
+        throw new Error(
+          `Failed to fetch data :(. Please try again later! (${res.status})`
+        );
       const data = await res.json();
+
+      // | Fetching one recipe case
+      if (query.type === 'recipe') return data;
 
       //  If there is no data.count or it's empty throw an error stating that there were no recipes found
       if (!data.count || data.count === 0)
