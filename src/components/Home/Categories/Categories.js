@@ -106,19 +106,13 @@ export default function Categories() {
     if (!userSearch) return;
 
     //  If the user filter is active, display 6 recipes that suit the filter
-    if (userFilter.active)
-      setPageRecipes({
-        page: 1,
-        recipes: userFilter.recipes.slice(0, RECIPES_PER_PAGE),
-      });
-
     //  If the filter is deactivated show all loaded recipes
-    if (!userFilter.active)
-      setPageRecipes({
-        page: 1,
-        recipes: stateRecipes.recipes.slice(0, RECIPES_PER_PAGE),
-      });
-    //
+    setPageRecipes({
+      page: 1,
+      recipes: userFilter.active
+        ? userFilter.recipes.slice(0, RECIPES_PER_PAGE)
+        : stateRecipes.recipes.slice(0, RECIPES_PER_PAGE),
+    });
   }, [stateRecipes.userFilter]);
 
   return (
@@ -135,7 +129,11 @@ export default function Categories() {
         )}
         {stateRecipes.userFilter.active &&
           stateRecipes.userFilter.recipes.length === 0 && (
-            <NoRecipes message={'No recipes with set criteria found. Try applying other filters!'} />
+            <NoRecipes
+              message={
+                'No recipes with set criteria found. Try applying other filters!'
+              }
+            />
           )}
         {!isLoading && !error && stateRecipes.recipes.length !== 0 && (
           <Recipes recipes={pageRecipes.recipes} />
