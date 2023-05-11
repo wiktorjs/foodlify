@@ -70,6 +70,12 @@
   @include respond(tab-port) {
     display: none;
   }
+
+  &.auth {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }
 
 .icon {

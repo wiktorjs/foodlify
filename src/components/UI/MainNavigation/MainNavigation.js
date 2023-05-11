@@ -10,22 +10,22 @@ import classes from './MainNavigation.module.scss';
 import ThemeSwitch from './ThemeSwitch';
 import Link from 'next/link';
 
-export default function MainNavigation() {
+export default function MainNavigation({page}) {
   return (
-    <nav className={classes.navigation}>
+    <nav className={`${classes.navigation} ${page === 'auth' ? classes.auth : ''}`}>
       <Link className={classes.logo} href='/' >Foodlify</Link>
 
       <ul>
         <li>
-          <a href="#" className={classes.link}>
+          <Link href='/auth?type=sign-in' className={classes.link}>
             Sign In
-          </a>
+          </Link>
         </li>
 
         <li>
-          <a href="#" className={classes.link}>
+          <Link href='/auth?type=sign-up' className={classes.link}>
             Sign Up
-          </a>
+          </Link>
         </li>
 
         <li>

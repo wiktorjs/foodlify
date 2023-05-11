@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   try {
     const { query, type } = JSON.parse(req.body);
-
+    
     const urlFragment =
       type === 'search'
         ? `?type=any&q=${query}`
