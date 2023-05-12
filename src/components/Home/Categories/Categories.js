@@ -128,7 +128,7 @@ export default function Categories() {
           <NoRecipes error={error} />
         )}
         {!isLoading && !error && stateRecipes.userFilter.active &&
-          stateRecipes.userFilter.recipes.length === 0 && (
+          stateRecipes.userFilter.recipes.length === 0 && stateRecipes.recipes.length !== 0 && (
             <NoRecipes
               message={
                 'No recipes with set criteria found. Try applying other filters!'

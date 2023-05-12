@@ -46,6 +46,10 @@
 
   &.active {
     height: 100%;
+
+    & .filters {
+      background-color: var(--color-light-gray);
+    }
   }
 
   & .hr {
@@ -54,7 +58,6 @@
     border-radius: 5px;
     border-top: 2px solid var(--color-black);
     z-index: 2;
-
   }
 
   & .filters {
@@ -65,32 +68,75 @@
 
     border-radius: 0 0 10px 10px;
 
-    background-color: var(--color-light-gray);
-
     overflow: auto;
 
     display: flex;
     flex-direction: column;
 
+    transition: background-color 0.5s linear;
+    will-change: background-color;
+
     & li:last-of-type {
       cursor: pointer;
       align-self: center;
       margin-top: 1rem;
-      padding-bottom: .2rem;
+      padding-bottom: 0.2rem;
       border-bottom: 1px solid currentColor;
       font-weight: 600;
 
-      transition: color, border-color, .2s ease;
+      transition: color, border-color, 0.2s ease;
       will-change: color, border-color;
 
       &:hover {
         color: var(--color-primary);
       }
     }
-    
   }
 
-  @include respond(tab-port){
-    display: none;
+  // ! Filters styling for 900px vw
+  @include respond(tab-port) {
+    z-index: 99;
+    position: fixed;
+    bottom: 0;
+    height: 50vh;
+    max-height: 50vh;
+    width: 100%;
+    left: 0;
+    transform: translateY(100%);
+    transition: transform 0.5s ease;
+
+    &.active {
+      transform: translateY(0);
+    }
+
+    & .hr {
+      border-radius: 0;
+      border-top: 1px solid;
+    }
+
+    & .filters {
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      height: 100%;
+      border-radius: 0;
+      padding-bottom: 3rem;
+
+      background-color: var(--color-light-gray);
+      transition: none;
+
+      & li {
+        flex: 0 0 15rem;
+
+        &:last-of-type {
+          margin: 0 0 1.8rem;
+          text-align: center;
+          align-self: center;
+          flex-basis: 100%;
+          border: none;
+          text-decoration: underline;
+        }
+      }
+    }
   }
 }

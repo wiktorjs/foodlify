@@ -7,11 +7,11 @@ import { useDispatch } from 'react-redux';
 import { setFilters } from '@/store/recipes-slice';
 export default function Filters() {
   const remainingCategores = CATEGORIES.slice(6);
-  const [buttonIsActive, setButtonIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const dispatch = useDispatch();
 
   const openButtonHandler = () => {
-    setButtonIsActive((prevState) => !prevState);
+    setIsActive((prevState) => !prevState);
   };
 
 
@@ -21,13 +21,13 @@ export default function Filters() {
     <>
       <div className={classes.wrapper}>
         <div className={classes.menu} onClick={openButtonHandler}>
-          <NavigationButton active={buttonIsActive} />
+          <NavigationButton active={isActive} />
           <p>Filters</p>
         </div>
 
         <div
           className={`${classes['filters-wrapper']} ${
-            buttonIsActive ? classes.active : ''
+            isActive ? classes.active : ''
           }`}
         >
           <hr className={classes.hr} />

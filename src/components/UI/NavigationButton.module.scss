@@ -40,7 +40,7 @@
 
   border: none;
 
-  &:hover {
+  &:focus {
     outline: none;
     & > * {
       background-color: var(--color-primary);
