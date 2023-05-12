@@ -39,7 +39,6 @@
   outline: none;
   color: var(--color-white);
 
-  margin-top: 2rem;
   min-width: 10rem;
   width: 50%;
   height: 5rem;
@@ -68,7 +67,15 @@
   }
 }
 
-.error {
+.input-error {
   font-size: 1.3rem;
-  margin-top: -1rem;
+  margin-top: -3rem;
+  margin-bottom: 1rem;
+}
+
+.error {
+  font-weight: 600;
+  color: var(--color-error);
+  font-size: 1.4rem;
+  margin-top: 1rem;
 }

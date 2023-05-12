@@ -17,7 +17,7 @@ const password = {
   placeholder: 'Shh... What\'s the secret word?',
 };
 
-export default function Form({ query }) {
+export default function Form({ query, passCredentials, error }) {
   const { validateUser } = useValidate();
 
   const validate = (values) => {
@@ -49,7 +49,7 @@ export default function Form({ query }) {
         password: values.password,
         query
       };
-      validateUser(credentials);
+      passCredentials(credentials);
     },
   });
 
@@ -59,14 +59,7 @@ export default function Form({ query }) {
   const passwordIsInvalid = formik.touched.password && formik.errors.password;
 
   return (
-    <main className={classes.main}>
-      <h2 className={classes.logo}>Foodlify</h2>
-      <h3 className={classes.text}>
-        {query.type === 'sign-up'
-          ? 'Create new account'
-          : 'Log into your account'}
-      </h3>
-
+ 
       <form
         className={classes['form_container']}
         onSubmit={formik.handleSubmit}
@@ -77,7 +70,7 @@ export default function Form({ query }) {
           {...formik.getFieldProps('username')}
         />
         {usernameIsInvalid && (
-          <p className={classes.error}>{formik.errors.username}</p>
+          <p className={classes['input-error']}>{formik.errors.username}</p>
         )}
 
         <Input
@@ -86,11 +79,10 @@ export default function Form({ query }) {
           {...formik.getFieldProps('password')}
         />
         {passwordIsInvalid && (
-          <p className={classes.error}>{formik.errors.password}</p>
+          <p className={classes['input-error']}>{formik.errors.password}</p>
         )}
-
+   
         <button
-          title="Sign In"
           type="submit"
           className={`${classes['sign-in_btn']} ${
             hasErrors ? classes.disabled : ''
@@ -99,7 +91,9 @@ export default function Form({ query }) {
         >
           <span>{query.type === 'sign-up' ? 'Sign Up' : 'Sign In'}</span>
         </button>
+
+        {error && <p className={classes.error}>{error}</p>}
       </form>
-    </main>
+
   );
 }

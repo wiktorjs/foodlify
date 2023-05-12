@@ -1,12 +1,12 @@
 .input {
   &-container {
     width: 100%;
-    height: fit-content;
     position: relative;
     display: flex;
+    justify-content: center;
     flex-direction: column;
     gap: 5px;
-    margin-bottom: 1rem;
+    margin: 2rem 0 3rem;
   }
 
   &__label {
@@ -14,6 +14,8 @@
     color: #8b8e98;
     font-weight: 600;
     font-size: 1.4rem;
+    position: absolute;
+    top: -2rem;
 
     &.invalid {
         color: var(--color-error);
@@ -46,13 +48,12 @@
   height: 2rem;
   width: 2rem;
   position: absolute;
-  z-index: 99;
-  left: 12px;
-  bottom: 14px;
+  z-index: 3;
+  left: 1.2rem;
 
   &-pwrd {
     left: unset;
-    right: 15px;
+    right: 1.5rem;
     cursor: pointer;
   }
 }
