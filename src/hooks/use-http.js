@@ -9,11 +9,11 @@ export default function useHttp() {
     const currentTime = Date.now();
     const lastRequestTime = localStorage.getItem('lastRequestTime') || 0;
 
-    if (currentTime - lastRequestTime < timeBetweenRequests)
-      throw new Error(
-        'Due to API limitations you can send only one request per minute. Please try again after this time has passed.'
-      );
-    //
+    // if (currentTime - lastRequestTime < timeBetweenRequests)
+    //   throw new Error(
+    //     'Due to API limitations you can send only one request per minute. Please try again after this time has passed.'
+    //   );
+    // //
 
     localStorage.setItem('lastRequestTime', currentTime);
   };

@@ -1,17 +1,58 @@
 import { Clock, Fire, Heart, ShoppingCart, User } from '@phosphor-icons/react';
 import classes from './RecipeCard.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-export default function RecipeCard({ id, img, name, servings, time, kcal, category }) {
+import { useDispatch, useSelector } from 'react-redux';
+import { addRecipe, removeRecipe } from '@/store/user-slice';
+export default function RecipeCard({
+  id,
+  img,
+  name,
+  servings,
+  time,
+  kcal,
+  category,
+}) {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const userSlice = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
-  const addBookmarkHandler = () => setIsBookmarked((prevState) => !prevState);
-  const stopPropagation = e => e.preventDefault();
+  const addBookmarkHandler = async () => {
+    const recipeObj = {
+      id,
+      name,
+      img,
+      servings,
+      kcal,
+      time,
+    };
+
+
+    if (isBookmarked) {
+      dispatch(removeRecipe({type: 'bookmarks', id: recipeObj.id}));
+
+      setIsBookmarked(false);
+      return;
+    }
+
+
+    dispatch(addRecipe({type: 'bookmarks', item: recipeObj}))
+    setIsBookmarked(true);
+  };
+  
+  const stopPropagation = (e) => e.preventDefault();
+
+  useEffect(() => {
+    const bookmarked = userSlice.bookmarks.find(bookmark => bookmark.id === id);
+    if(!bookmarked) return;
+
+    setIsBookmarked(true);
+  }, [])
 
   return (
     <Link href={`/recipes/${id}`} className={classes.wrapper}>
       <img src={img} alt={name} className={classes.img} />
-      
+
       <div className={classes.content}>
         <div className={classes.details}>
           <p>{name.length <= 20 ? name : `${name.slice(0, 17)}...`}</p>
@@ -36,8 +77,16 @@ export default function RecipeCard({ id, img, name, servings, time, kcal, catego
         </div>
 
         <div className={classes['action-box']}>
-          <p> {category.length <= 11 ? category : `${category.slice(0, 11)}...`} </p>
-          <div className={classes['details--additional']} onClick={stopPropagation}>
+          <p>
+            {' '}
+            {category.length <= 11
+              ? category
+              : `${category.slice(0, 11)}...`}{' '}
+          </p>
+          <div
+            className={classes['details--additional']}
+            onClick={stopPropagation}
+          >
             <Heart
               onClick={addBookmarkHandler}
               className={classes['icon--action']}

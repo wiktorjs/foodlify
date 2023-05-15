@@ -32,6 +32,7 @@ export default function RecipePage({ id }) {
       {!error && isLoading && <Loader />}
       {!error && !isLoading && recipe && <Recipe recipeDetails={recipe} />}
       {!isLoading && error && <NoRecipes error={error} />}
+
     </>
   );
 }
