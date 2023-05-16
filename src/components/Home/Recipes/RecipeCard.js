@@ -1,9 +1,11 @@
 import { Clock, Fire, Heart, ShoppingCart, User } from '@phosphor-icons/react';
 import classes from './RecipeCard.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { addRecipe, removeRecipe } from '@/store/user-slice';
+import useUser from '@/hooks/use-user';
+
 export default function RecipeCard({
   id,
   img,
@@ -14,10 +16,19 @@ export default function RecipeCard({
   category,
 }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isInCart, setIsInCart] = useState(false);
+  const bookmarkRef = useRef();
+  const cartRef = useRef();
+
   const userSlice = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const { updateUser } = useUser();
 
-  const addBookmarkHandler = async () => {
+  const stopPropagation = (e) => e.preventDefault();
+
+  const recipeHandler = async (type) => {
+    if (!userSlice.isLoggedIn) return;
+
     const recipeObj = {
       id,
       name,
@@ -27,27 +38,52 @@ export default function RecipeCard({
       time,
     };
 
+    if (type === 'bookmark') {
+      if (isBookmarked) {
+        dispatch(removeRecipe({ type: 'bookmarks', id: recipeObj.id }));
+        setIsBookmarked(false);
+        return;
+      }
 
-    if (isBookmarked) {
-      dispatch(removeRecipe({type: 'bookmarks', id: recipeObj.id}));
-
-      setIsBookmarked(false);
-      return;
+      dispatch(addRecipe({ type: 'bookmarks', item: recipeObj }));
+      setIsBookmarked(true);
     }
 
+    if (type === 'cart') {
 
-    dispatch(addRecipe({type: 'bookmarks', item: recipeObj}))
-    setIsBookmarked(true);
+      if (isInCart) {
+        dispatch(removeRecipe({ type: 'cart', id: recipeObj.id }));
+        setIsInCart(false);
+        return;
+      }
+
+      dispatch(addRecipe({ type: 'cart', item: recipeObj }));
+      setIsInCart(true);
+    }
   };
-  
-  const stopPropagation = (e) => e.preventDefault();
 
+   // | Update user bookmarks or cart in database
+   useEffect(() => {
+    // ? Prevents running this useEffect for every RecipeCard that is visibile thus limiting the amount of requests sent.
+    if(bookmarkRef.current === isBookmarked && cartRef.current === isInCart) return;
+    console.log(1)
+    const { bookmarks, cart, uID } = userSlice;
+    updateUser({ bookmarks, cart, uID });
+
+    bookmarkRef.current = isBookmarked
+    cartRef.current = isInCart;
+  }, [isBookmarked, isInCart]);
+
+  // | Mark recipes as bookmarked or in cart when the user logs in
   useEffect(() => {
-    const bookmarked = userSlice.bookmarks.find(bookmark => bookmark.id === id);
-    if(!bookmarked) return;
+    const bookmarked = userSlice.bookmarks.find((recipe) => recipe.id === id);
+    const inCart = userSlice.cart.find((recipe) => recipe.id === id);
 
-    setIsBookmarked(true);
-  }, [])
+    if (bookmarked) setIsBookmarked(true);
+    if (inCart) setIsInCart(true);
+  }, [userSlice.bookmarks, userSlice.cart]);
+
+
 
   return (
     <Link href={`/recipes/${id}`} className={classes.wrapper}>
@@ -58,7 +94,7 @@ export default function RecipeCard({
           <p>{name.length <= 20 ? name : `${name.slice(0, 17)}...`}</p>
 
           <div className={classes['details--additional']}>
-            <User className={classes.icon} weight="bold" />{' '}
+            <User className={classes.icon} weight="regular" />
             <span>{servings}</span>
           </div>
         </div>
@@ -88,12 +124,17 @@ export default function RecipeCard({
             onClick={stopPropagation}
           >
             <Heart
-              onClick={addBookmarkHandler}
+              onClick={recipeHandler.bind(null, 'bookmark')}
               className={classes['icon--action']}
               weight={isBookmarked ? 'fill' : 'bold'}
               fill={isBookmarked ? '#00c86b' : ''}
             />
-            <ShoppingCart className={classes['icon--action']} weight="bold" />
+            <ShoppingCart
+              onClick={recipeHandler.bind(null, 'cart')}
+              className={classes['icon--action']}
+              weight="bold"
+              fill={isInCart ? '#00c86b' : ''}
+            />
           </div>
         </div>
       </div>

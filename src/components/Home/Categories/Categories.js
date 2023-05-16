@@ -24,7 +24,10 @@ export default function Categories() {
   const loadRecipes = async function (nextPage = false, currentPage) {
     // | New search logic
     if (!nextPage) {
-      const data = await fetchData({query: stateRecipes.userSearch, type: 'search'});
+      const data = await fetchData({
+        query: stateRecipes.userSearch,
+        type: 'search',
+      });
       if (!data) return;
 
       const fetchedRecipes = data.recipes;
@@ -46,8 +49,9 @@ export default function Categories() {
 
     // Get next recipes from the API
     const nextPageUrl = stateRecipes.pages.next.href;
-    const data = await fetchData(null, null, nextPageUrl);
-    const fetchedRecipes = data.recipes;
+    const data = await fetchData(null, nextPageUrl);
+    const fetchedRecipes = data?.recipes;
+    if (!fetchedRecipes) return;
 
     // Update recipes state with new recipes and link to the next page
     dispatch(updateRecipes(data));
@@ -127,8 +131,11 @@ export default function Categories() {
         {!isLoading && (error || stateRecipes.recipes.length === 0) && (
           <NoRecipes error={error} />
         )}
-        {!isLoading && !error && stateRecipes.userFilter.active &&
-          stateRecipes.userFilter.recipes.length === 0 && stateRecipes.recipes.length !== 0 && (
+        {!isLoading &&
+          !error &&
+          stateRecipes.userFilter.active &&
+          stateRecipes.userFilter.recipes.length === 0 &&
+          stateRecipes.recipes.length !== 0 && (
             <NoRecipes
               message={
                 'No recipes with set criteria found. Try applying other filters!'

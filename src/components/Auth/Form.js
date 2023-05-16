@@ -18,7 +18,6 @@ const password = {
 };
 
 export default function Form({ query, passCredentials, error }) {
-  const { validateUser } = useValidate();
 
   const validate = (values) => {
     const errors = {};

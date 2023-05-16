@@ -15,6 +15,7 @@ export default function Auth({ query }) {
   const sendRequest = async (credentials) => {
     const user = await validateUser(credentials);
     if(!user) return;
+    
     dispatch(logIn(user));
     router.push('/');
   };

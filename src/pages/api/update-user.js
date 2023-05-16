@@ -1,15 +1,22 @@
+
 export default async function handler(req, res) {
   try {
     const user = req.body;
-    console.log(user)
-    return
-    const response = await fetch(`${process.env.DB_URI}/users.json`, {
+    const updates = {
+        bookmarks: user.bookmarks,
+        cart: user.cart
+    }
+    
+    const response = await fetch(`${process.env.DB_URI}/users/${user.uID}.json`, {
       method: 'PATCH',
-      body: JSON.stringify(user),
+      body: JSON.stringify(updates),
       headers: { 'Content-Type': 'application/json' },
     });
 
+    if(!response.ok) throw new Error('Something went wrong. Please try again later.');
+    
+    res.status(200).json({status: 200, message: 'Account updated successfully'});
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ status: 500, message: err.message });
   }
 }

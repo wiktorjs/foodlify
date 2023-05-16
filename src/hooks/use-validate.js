@@ -9,7 +9,7 @@ export default function useValidate() {
     try {
       setError(null);
       setIsLoading(true);
-   
+
       const getRes = await fetch('/api/fetch-user');
       if (!getRes.ok)
         throw new Error(
@@ -19,13 +19,18 @@ export default function useValidate() {
       const users = await getRes.json();
 
       // Find user in database
-      const foundUser =
+      const user =
         users &&
-        Object.values(users).find((user) => user.username.toLowerCase() === username.toLowerCase());
+        Object.entries(users).find(
+          (user) => user[1].username.toLowerCase() === username.toLowerCase()
+        );
+
+      const [uID, foundUser] = user ? user : [null, null];
 
       // ! Sign up case
       if (query.type === 'sign-up') {
-        if (foundUser) throw new Error('Username already exists. Sign in to continue.');
+        if (foundUser)
+          throw new Error('Username already exists. Sign in to continue.');
 
         // Generate salt and hash entered password
         const salt = bcrypt.genSaltSync(10);
@@ -35,6 +40,8 @@ export default function useValidate() {
           username,
           hashedPassword,
           salt,
+          // bookmarks: '',
+          // cart: '',
         };
 
         // Forward data to API route
@@ -59,7 +66,10 @@ export default function useValidate() {
         if (!foundUser) throw new Error('Username not found.');
 
         // Hash entered password with salt that was generated upon account creation
-        const enteredHashedPassword = bcrypt.hashSync(password, foundUser.salt);
+        const enteredHashedPassword = bcrypt.hashSync(
+          password,
+          foundUser.salt
+        );
 
         // Check if it's valid
         const passwordIsValid =
@@ -71,15 +81,14 @@ export default function useValidate() {
 
         // Log user in
         return {
+          uID,
           user: foundUser.username,
-          bookmarks: foundUser.bookmarks || ['test bookmark'],
-          cart: foundUser.cart || ['test cart'],
-        }
-
+          bookmarks: foundUser.bookmarks || [],
+          cart: foundUser.cart || [],
+        };
       }
     } catch (err) {
       setError(err.message);
-
     } finally {
       setIsLoading(false);
     }
