@@ -1,4 +1,4 @@
-import RecipeCard from './RecipeCard';
+import RecipeCard from '../../UI/RecipeCard';
 
 export default function Recipes({ recipes }) {
   return (
@@ -15,6 +15,7 @@ export default function Recipes({ recipes }) {
             time={recipe.totalTime}
             kcal={recipe.calories}
             category={recipe.dishType[0]?.toUpperCase()}
+            type='main'
           />
         );
       })}

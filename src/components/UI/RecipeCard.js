@@ -14,6 +14,7 @@ export default function RecipeCard({
   time,
   kcal,
   category,
+  type,
 }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
@@ -50,7 +51,6 @@ export default function RecipeCard({
     }
 
     if (type === 'cart') {
-
       if (isInCart) {
         dispatch(removeRecipe({ type: 'cart', id: recipeObj.id }));
         setIsInCart(false);
@@ -62,15 +62,16 @@ export default function RecipeCard({
     }
   };
 
-   // | Update user bookmarks or cart in database
-   useEffect(() => {
+  // | Update user bookmarks or cart in database
+  useEffect(() => {
     // ? Prevents running this useEffect for every RecipeCard that is visibile thus limiting the amount of requests sent.
-    if(bookmarkRef.current === isBookmarked && cartRef.current === isInCart) return;
-    console.log(1)
+    if (bookmarkRef.current === isBookmarked && cartRef.current === isInCart)
+      return;
+
     const { bookmarks, cart, uID } = userSlice;
     updateUser({ bookmarks, cart, uID });
 
-    bookmarkRef.current = isBookmarked
+    bookmarkRef.current = isBookmarked;
     cartRef.current = isInCart;
   }, [isBookmarked, isInCart]);
 
@@ -83,44 +84,54 @@ export default function RecipeCard({
     if (inCart) setIsInCart(true);
   }, [userSlice.bookmarks, userSlice.cart]);
 
-
-
   return (
-    <Link href={`/recipes/${id}`} className={classes.wrapper}>
+    <Link href={`/recipes/${id}`} className={classes[`wrapper-${type}`]}>
       <img src={img} alt={name} className={classes.img} />
 
-      <div className={classes.content}>
-        <div className={classes.details}>
+      <div className={classes.details}>
+        {type !== 'main' && (
           <p>{name.length <= 20 ? name : `${name.slice(0, 17)}...`}</p>
+        )}
+        
+        {type === 'main' && (
+          <div className={classes.general}>
+            <p>{name.length <= 20 ? name : `${name.slice(0, 17)}...`}</p>
 
-          <div className={classes['details--additional']}>
-            <User className={classes.icon} weight="regular" />
-            <span>{servings}</span>
+            <span>
+              <User className={classes.icon} weight="regular" />
+              {servings}
+            </span>
           </div>
-        </div>
+        )}
 
-        <div className={classes.details}>
-          <div className={classes['details--additional']}>
+        <div className={classes.general}>
+          {type !== 'main' && (
+            <span>
+              <User className={classes.icon} weight="regular" />
+              {servings}
+            </span>
+          )}
+
+          <span>
             <Fire className={classes.icon} weight="regular" />
+            {Math.trunc(kcal)} kcal
+          </span>
 
-            <span>{Math.trunc(kcal)} kcal</span>
-          </div>
-
-          <div className={classes['details--additional']}>
+          <span>
             <Clock className={classes.icon} weight="regular" />
-            <span>{time} min</span>
-          </div>
+            {time} min
+          </span>
         </div>
 
-        <div className={classes['action-box']}>
-          <p>
-            {' '}
-            {category.length <= 11
-              ? category
-              : `${category.slice(0, 11)}...`}{' '}
-          </p>
+        <div className={classes.actions}>
+          {type === 'main' && (
+            <p>
+              {category.length <= 11 ? category : `${category.slice(0, 11)}...`}
+            </p>
+          )}
+
           <div
-            className={classes['details--additional']}
+          
             onClick={stopPropagation}
           >
             <Heart
