@@ -21,19 +21,14 @@ export const userSlice = createSlice({
       return initialState;
     },
 
-    addRecipe: (state, action) => {
-      const {type, item} = action.payload
-      if(type === 'bookmarks') state.bookmarks.push(item);
-      if(type === 'cart') state.cart.push(item);
-    },
-
-    removeRecipe: (state, action) => {
-      const {type, id} = action.payload
-      if(type === 'bookmarks') state.bookmarks = state.bookmarks.filter(recipe => recipe.id !== id);
-      if(type === 'cart') state.cart = state.cart.filter(recipe => recipe.id !== id);
+    changeUserData: (state, action) => {
+      const {type, bookmarks, cart} = action.payload
+      if(type === 'bookmarks') state.bookmarks = bookmarks;
+      if(type === 'cart') state.cart = cart;
     }
+
   },
 });
 
-export const { logIn, logOut, addRecipe, removeRecipe } = userSlice.actions;
+export const { logIn, logOut, changeUserData } = userSlice.actions;
 export default userSlice.reducer;

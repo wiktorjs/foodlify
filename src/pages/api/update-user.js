@@ -3,10 +3,10 @@ export default async function handler(req, res) {
   try {
     const user = req.body;
     const updates = {
-        bookmarks: user.bookmarks,
-        cart: user.cart
+        bookmarks: user.newBookmarks,
+        cart: user.newCart
     }
-    
+
     const response = await fetch(`${process.env.DB_URI}/users/${user.uID}.json`, {
       method: 'PATCH',
       body: JSON.stringify(updates),

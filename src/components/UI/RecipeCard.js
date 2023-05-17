@@ -1,9 +1,9 @@
 import { Clock, Fire, Heart, ShoppingCart, User } from '@phosphor-icons/react';
 import classes from './RecipeCard.module.scss';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { addRecipe, removeRecipe } from '@/store/user-slice';
+import { changeUserData } from '@/store/user-slice';
 import useUser from '@/hooks/use-user';
 
 export default function RecipeCard({
@@ -16,10 +16,11 @@ export default function RecipeCard({
   category,
   type,
 }) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [isInCart, setIsInCart] = useState(false);
-  const bookmarkRef = useRef();
-  const cartRef = useRef();
+
+  const [state, setState] = useState({
+    isBookmarked: false,
+    isInCart: false,
+  });
 
   const userSlice = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -27,10 +28,12 @@ export default function RecipeCard({
 
   const stopPropagation = (e) => e.preventDefault();
 
-  const recipeHandler = async (type) => {
+  const recipeHandler = async (actionType) => {
     if (!userSlice.isLoggedIn) return;
+    const { bookmarks, cart, uID } = userSlice;
+    let newCart, newBookmarks;
 
-    const recipeObj = {
+    const clickedRecipe = {
       id,
       name,
       img,
@@ -39,49 +42,40 @@ export default function RecipeCard({
       time,
     };
 
-    if (type === 'bookmark') {
-      if (isBookmarked) {
-        dispatch(removeRecipe({ type: 'bookmarks', id: recipeObj.id }));
-        setIsBookmarked(false);
-        return;
-      }
+    if (actionType === 'bookmark') {
+      // If the recipe wasn't bookmarked, create an array containing recipes from userSlice and clicked recipe, else filter it out
+      newBookmarks = !state.isBookmarked
+        ? [...bookmarks, clickedRecipe]
+        : bookmarks.filter((recipe) => recipe.id !== clickedRecipe.id);
 
-      dispatch(addRecipe({ type: 'bookmarks', item: recipeObj }));
-      setIsBookmarked(true);
+      // Update user with new bookmarks
+      updateUser({ newBookmarks, cart, uID });
+
+      // Update state with new bookmarks
+      dispatch(changeUserData({ type: 'bookmarks', bookmarks: newBookmarks }));
     }
 
-    if (type === 'cart') {
-      if (isInCart) {
-        dispatch(removeRecipe({ type: 'cart', id: recipeObj.id }));
-        setIsInCart(false);
-        return;
-      }
+    // Same logic as for bookmarks
+    if (actionType === 'cart') {
+      newCart = !state.isInCart
+        ? [...cart, clickedRecipe]
+        : cart.filter((recipe) => recipe.id !== clickedRecipe.id);
 
-      dispatch(addRecipe({ type: 'cart', item: recipeObj }));
-      setIsInCart(true);
+      updateUser({ bookmarks, newCart, uID });
+      dispatch(changeUserData({ type: 'cart', cart: newCart }));
     }
   };
 
-  // | Update user bookmarks or cart in database
   useEffect(() => {
-    // ? Prevents running this useEffect for every RecipeCard that is visibile thus limiting the amount of requests sent.
-    if (bookmarkRef.current === isBookmarked && cartRef.current === isInCart)
-      return;
-
-    const { bookmarks, cart, uID } = userSlice;
-    updateUser({ bookmarks, cart, uID });
-
-    bookmarkRef.current = isBookmarked;
-    cartRef.current = isInCart;
-  }, [isBookmarked, isInCart]);
-
-  // | Mark recipes as bookmarked or in cart when the user logs in
-  useEffect(() => {
+    // Upon bookmarks or cart change (incl. log in), determine wether the recipe was added or removed
     const bookmarked = userSlice.bookmarks.find((recipe) => recipe.id === id);
     const inCart = userSlice.cart.find((recipe) => recipe.id === id);
 
-    if (bookmarked) setIsBookmarked(true);
-    if (inCart) setIsInCart(true);
+    // Set it state to correct value to display suitable icons
+    setState({
+      isBookmarked: bookmarked ? true : false,
+      isInCart: inCart ? true : false,
+    });
   }, [userSlice.bookmarks, userSlice.cart]);
 
   return (
@@ -92,7 +86,7 @@ export default function RecipeCard({
         {type !== 'main' && (
           <p>{name.length <= 20 ? name : `${name.slice(0, 17)}...`}</p>
         )}
-        
+
         {type === 'main' && (
           <div className={classes.general}>
             <p>{name.length <= 20 ? name : `${name.slice(0, 17)}...`}</p>
@@ -130,21 +124,18 @@ export default function RecipeCard({
             </p>
           )}
 
-          <div
-          
-            onClick={stopPropagation}
-          >
+          <div onClick={stopPropagation}>
             <Heart
               onClick={recipeHandler.bind(null, 'bookmark')}
               className={classes['icon--action']}
-              weight={isBookmarked ? 'fill' : 'bold'}
-              fill={isBookmarked ? '#00c86b' : ''}
+              weight={state.isBookmarked ? 'fill' : 'bold'}
+              fill={state.isBookmarked ? '#00c86b' : ''}
             />
             <ShoppingCart
               onClick={recipeHandler.bind(null, 'cart')}
               className={classes['icon--action']}
               weight="bold"
-              fill={isInCart ? '#00c86b' : ''}
+              fill={state.isInCart ? '#00c86b' : ''}
             />
           </div>
         </div>
