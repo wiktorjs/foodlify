@@ -54,6 +54,12 @@
       & p {
         font-weight: 600;
       }
+
+      @include respond(tab-port) {
+        &:first-of-type {
+          margin-top: 5rem;
+        }
+      }
     }
 
     & .actions {
@@ -74,6 +80,8 @@
         flex: 0 0 55%;
       }
     }
+
+    
   }
 
   &:hover {
@@ -85,9 +93,7 @@
     }
   }
 
-  @include respond(tab-port) {
-    margin-top: -3rem;
-  }
+ 
 }
 
 .icon {
@@ -126,6 +132,10 @@
   cursor: pointer;
   transition: transform 0.2s ease;
 
+ @include respond(phone) {
+  height: 25rem;
+ }
+
   & .img {
     display: inline-block;
     height: 85%;
@@ -139,6 +149,11 @@
 
     transition: border-color 0.2s ease;
     will-change: border-color;
+
+    @include respond(phone) {
+      height: auto;
+      width: 40%;
+    }
   }
 
   & .details {
@@ -168,6 +183,11 @@
         align-items: center;
         gap: 5px;
       }
+
+      @include respond(phone) {
+        display: flex;
+        flex-wrap: wrap;
+      }
     }
 
     & .actions {
@@ -177,6 +197,10 @@
         width: 2.8rem;
         height: 2.8rem;
       }
+    }
+
+    @include respond(phone) {
+      flex-wrap: nowrap;
     }
   }
 
@@ -191,4 +215,6 @@
       color: var(--color-primary);
     }
   }
+
+  
 }

@@ -1,4 +1,5 @@
 @import '@/styles/variables';
+@import '@/styles/mixins';
 
 .overlay-wrapper {
   position: fixed;
@@ -13,7 +14,6 @@
   text-align: center;
   transform: translateX(100%);
   transition: transform 0.2s ease-in-out;
-  // overflow: auto;
 
   &.active {
     transform: translate(0);
@@ -21,6 +21,53 @@
 
   & h2 {
     margin-bottom: 2rem;
+  }
+
+  @include respond(tab-port) {
+    padding-top: 10rem;
+    width: 100vw;
+    right: 0;
+    top: 0;
+    z-index: 2000;
+    transform: translate(0);
+    background-color: rgba($color-black, 0.5);
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity, visibility, .2s ease;
+
+    & h2 {
+      color: $color-white;
+      font-weight: 600;
+      font-size: 3rem;
+      margin-bottom: 5rem;
+    }
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.close {
+  position: absolute;
+  display: inline-block;
+  right: 3rem;
+  cursor: pointer;
+  height: 3rem;
+  width: 3rem;
+  fill: $color-white;
+
+  &:hover {
+    fill: var(--color-primary);
+  }
+
+  @include respond(tab-port) {
+    height: 4rem;
+    width: 4rem;
+    left: 4rem;
+    top: 4rem;
   }
 }
 
@@ -109,7 +156,7 @@
   width: 2.5rem;
   cursor: pointer;
 
-  transition: fill .2s ease;
+  transition: fill 0.2s ease;
   will-change: fill;
   &:hover {
     fill: var(--color-primary);

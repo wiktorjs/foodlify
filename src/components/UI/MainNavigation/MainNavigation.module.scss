@@ -70,14 +70,50 @@
     }
   }
 
-  @include respond(tab-port) {
-    display: none;
-  }
-
   &.auth {
     position: absolute;
     top: 0;
     left: 0;
+  }
+
+  @include respond(tab-port) {
+    position: fixed;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    padding: 5rem;
+    font-size: 3rem;
+    gap: 5rem;
+
+    flex-direction: column;
+    justify-content: start;
+    padding-top: 25vh;
+    
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity, visibility, filter, .2s ease-out;
+    will-change: filter;
+
+    &.mobile--active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &.overlay--active {
+      filter: blur(5px) brightness(.5);
+    }
+
+    & .logo {
+      font-size: 8rem;
+    }
+
+    & ul {
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
 
@@ -89,6 +125,12 @@
     color: var(--color-primary);
     font-weight: 700;
     margin-left: .3rem;
+  }
+
+  @include respond(tab-port) {
+    text-align: center;
+    flex-basis: 100%;
+    font-size: 3.5rem;
   }
 }
 
@@ -109,10 +151,20 @@
   border-radius: 100px;
   box-shadow: 0 1px 1px rgba(0,0,0, .3);
   background-color: rgba($color-primary, .8);
+
+  @include respond(tab-port) {
+    height: 3rem;
+    width: 3rem;
+  }
 }
 
 .icon {
   height: 2.5rem;
   width: 2.5rem;
   transition: transform, color, 0.2s ease;
+
+  @include respond(tab-port) {
+    height: 5rem;
+    width: 5rem;
+  }
 }

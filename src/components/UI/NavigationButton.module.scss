@@ -1,26 +1,16 @@
-@import "../../styles/mixins";
+@import '@/styles/mixins';
+@import '@/styles/variables';
 .button {
-  //   visibility: hidden;
-  //   opacity: 0;
-  //   position: fixed;
   position: relative;
-  // z-index: 999;
-  //   top: 4rem;
-  //   left: 3rem;
+
   height: 2rem;
 
-  //   background-color: rgba($color-primary, 0.9);
   padding: 3rem;
   border-radius: 5px;
   cursor: pointer;
-  //   box-shadow: $bshadow-s;
-  transition: background-color, box-shadow, opacity, 0.2s ease-in;
-  will-change: background-color, box-shadow;
 
-  &.active {
-    box-shadow: none;
-    background-color: transparent;
-  }
+  transition: background-color, box-shadow, 0.2s ease-in;
+  will-change: background-color, box-shadow;
 
   & > * {
     display: block;
@@ -42,21 +32,24 @@
 
   &:focus {
     outline: none;
-    & > * {
-      background-color: var(--color-primary);
-    }
   }
-
 
   &.mobile {
     display: none;
-  
-    @include respond(phone) {
+
+    @include respond(tab-port) {
       z-index: 999;
       display: inline-block;
-      position: sticky;
+      position: fixed;
       top: 3rem;
-      left: -3rem;
+      left: 3rem;
+      background-color: rgba($color-white, 0.9);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+      &.active {
+        box-shadow: none;
+        background-color: transparent;
+      }
     }
   }
 }
@@ -89,5 +82,3 @@
     top: 50%;
   }
 }
-
-

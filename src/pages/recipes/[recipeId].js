@@ -17,6 +17,7 @@ export default function RecipePage({ id }) {
   };
 
   useEffect(() => {
+    // todo WHY IS THIS COMPONENT RERENDERED SO MUCH??
     const displayedRecipe = recipes.find((recipe) => recipe.id === id);
 
     if (!displayedRecipe) {
@@ -25,14 +26,13 @@ export default function RecipePage({ id }) {
     }
 
     setRecipe(displayedRecipe);
-  }, [id]); 
+  }, []);
 
   return (
     <>
       {!error && isLoading && <Loader />}
       {!error && !isLoading && recipe && <Recipe recipeDetails={recipe} />}
       {!isLoading && error && <NoRecipes error={error} />}
-
     </>
   );
 }

@@ -72,8 +72,6 @@ export default function RecipeCard({
     const bookmarked = userSlice.bookmarks.find((recipe) => recipe.id === id);
     const inCart = userSlice.cart.find((recipe) => recipe.id === id);
 
-    console.log('use effect running');
-
     // Set it state to correct value to display suitable icons
     setState({
       isBookmarked: bookmarked ? true : false,

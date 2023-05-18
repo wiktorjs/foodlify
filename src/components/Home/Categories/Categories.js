@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import classes from './Categories.module.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
-import recipesSlice, { setRecipes, updateRecipes } from '@/store/recipes-slice';
+import  { setRecipes, updateRecipes } from '@/store/recipes-slice';
 import useHttp from '../../../hooks/use-http';
 
 import Filters from './Filters';

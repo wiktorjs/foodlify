@@ -8,8 +8,10 @@ import { logOut } from '@/store/user-slice';
 import { useRouter } from 'next/router';
 import OverlayWrapper from '../OverlayWrapper';
 import { useState } from 'react';
+import NavigationButton from '../NavigationButton';
 
 export default function MainNavigation({ page }) {
+  const [mobileNavIsActive, setMobileNavIsActive] = useState(false);
   const [overlay, setOverlay] = useState({
     type: null,
     isActive: false,
@@ -26,7 +28,7 @@ export default function MainNavigation({ page }) {
 
   const overlayHandler = (e) => {
     const action = e.target.closest('div').id;
-    
+
     setOverlay((prevState) => ({
       type: action,
       isActive:
@@ -36,11 +38,24 @@ export default function MainNavigation({ page }) {
     }));
   };
 
+  const closeOverlayHandler = () =>
+    setOverlay((prevState) => ({ ...prevState, isActive: false }));
+
+  const mobileNavigationHandler = () =>
+    setMobileNavIsActive((prevState) => !prevState);
+
   return (
     <>
+      <NavigationButton
+        mobile={true}
+        active={mobileNavIsActive}
+        onClick={mobileNavigationHandler}
+      />
       <nav
         className={`${classes.navigation} ${
           page === 'auth' ? classes.auth : ''
+        } ${mobileNavIsActive ? classes['mobile--active'] : ''} ${
+          overlay.isActive ? classes['overlay--active'] : ''
         }`}
       >
         <Link className={classes.logo} href="/">
@@ -110,7 +125,11 @@ export default function MainNavigation({ page }) {
         </ul>
       </nav>
 
-      <OverlayWrapper type={overlay.type} active={overlay.isActive} />
+      <OverlayWrapper
+        type={overlay.type}
+        active={overlay.isActive}
+        onClick={closeOverlayHandler}
+      />
     </>
   );
 }

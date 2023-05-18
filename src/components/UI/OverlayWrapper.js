@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
 import classes from './Overlay.module.scss';
 import RecipeCard from './RecipeCard';
+import { X } from '@phosphor-icons/react';
 
-export default function OverlayWrapper({ type, active }) {
+export default function OverlayWrapper({ type, active, onClick }) {
   const userSlice = useSelector((state) => state.user);
 
   return (
@@ -11,7 +12,8 @@ export default function OverlayWrapper({ type, active }) {
         active ? classes.active : ''
       }`}
     >
-      <h2>Your {type}</h2>
+      <X className={classes.close} weight="bold" onClick={onClick}/>
+      <h2>Your {type === 'bookmarks' ? type : 'shopping list'}</h2>
 
       <div className={classes.recipes}>
         {type === 'bookmarks' &&
@@ -29,7 +31,8 @@ export default function OverlayWrapper({ type, active }) {
           ))}
 
         {type === 'cart' &&
-          userSlice.cart.map((cart) =>  <RecipeCard
+          userSlice.cart.map((cart) => (
+            <RecipeCard
               key={cart.id}
               id={cart.id}
               img={cart.img}
@@ -38,7 +41,8 @@ export default function OverlayWrapper({ type, active }) {
               time={cart.time}
               kcal={cart.kcal}
               type="secondary"
-            />)}
+            />
+          ))}
       </div>
     </div>
   );
