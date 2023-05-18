@@ -1,10 +1,10 @@
 
-.wifi-loader {
+.loader {
   
   --front-color: #00c86b;
   --back-color: #afe1ca;
   --text-color: #0d0d0d;
-  width: 64px;
+  width: 100px;
   height: 64px;
   border-radius: 50px;
   position: relative;
@@ -18,14 +18,19 @@
   justify-self: center;
 }
 
-.wifi-loader svg {
+.centered {
+  margin-top: 5rem;
+  align-self: center;
+}
+
+.loader svg {
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.wifi-loader svg circle {
+.loader svg circle {
   position: absolute;
   fill: none;
   stroke-width: 6px;
@@ -35,66 +40,66 @@
   transform-origin: center;
 }
 
-.wifi-loader svg circle.back {
+.loader svg circle.back {
   stroke: var(--back-color);
 }
 
-.wifi-loader svg circle.front {
+.loader svg circle.front {
   stroke: var(--front-color);
 }
 
-.wifi-loader svg.circle-outer {
+.loader svg.circle-outer {
   height: 86px;
   width: 86px;
 }
 
-.wifi-loader svg.circle-outer circle {
+.loader svg.circle-outer circle {
   stroke-dasharray: 62.75 188.25;
 }
 
-.wifi-loader svg.circle-outer circle.back {
+.loader svg.circle-outer circle.back {
   animation: circle-outer135 1.8s ease infinite 0.3s;
 }
 
-.wifi-loader svg.circle-outer circle.front {
+.loader svg.circle-outer circle.front {
   animation: circle-outer135 1.8s ease infinite 0.15s;
 }
 
-.wifi-loader svg.circle-middle {
+.loader svg.circle-middle {
   height: 60px;
   width: 60px;
 }
 
-.wifi-loader svg.circle-middle circle {
+.loader svg.circle-middle circle {
   stroke-dasharray: 42.5 127.5;
 }
 
-.wifi-loader svg.circle-middle circle.back {
+.loader svg.circle-middle circle.back {
   animation: circle-middle6123 1.8s ease infinite 0.25s;
 }
 
-.wifi-loader svg.circle-middle circle.front {
+.loader svg.circle-middle circle.front {
   animation: circle-middle6123 1.8s ease infinite 0.1s;
 }
 
-.wifi-loader svg.circle-inner {
+.loader svg.circle-inner {
   height: 34px;
   width: 34px;
 }
 
-.wifi-loader svg.circle-inner circle {
+.loader svg.circle-inner circle {
   stroke-dasharray: 22 66;
 }
 
-.wifi-loader svg.circle-inner circle.back {
+.loader svg.circle-inner circle.back {
   animation: circle-inner162 1.8s ease infinite 0.2s;
 }
 
-.wifi-loader svg.circle-inner circle.front {
+.loader svg.circle-inner circle.front {
   animation: circle-inner162 1.8s ease infinite 0.05s;
 }
 
-.wifi-loader .text {
+.loader .text {
   position: absolute;
   bottom: -40px;
   display: flex;
@@ -106,16 +111,16 @@
   letter-spacing: 0.2px;
 }
 
-.wifi-loader .text::before,
-.wifi-loader .text::after {
+.loader .text::before,
+.loader .text::after {
   content: attr(data-text);
 }
 
-.wifi-loader .text::before {
+.loader .text::before {
   color: var(--text-color);
 }
 
-.wifi-loader .text::after {
+.loader .text::after {
   color: var(--front-color);
   animation: text-animation76 3.6s ease infinite;
   position: absolute;

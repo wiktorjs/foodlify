@@ -1,7 +1,7 @@
 import classes from './Loader.module.scss';
-export default function Loader() {
+export default function Loader({type, text}) {
   return (
-    <div id="wifi-loader" className={classes['wifi-loader']}>
+    <div id="loader" className={`${classes['loader']} ${type ? classes[type] : ''}`}>
       <svg className={classes['circle-outer']} viewBox="0 0 86 86">
         <circle className={classes.back} cx="43" cy="43" r="40"></circle>
         <circle className={classes.front} cx="43" cy="43" r="40"></circle>
@@ -15,7 +15,7 @@ export default function Loader() {
         <circle className={classes.back} cx="17" cy="17" r="14"></circle>
         <circle className={classes.front} cx="17" cy="17" r="14"></circle>
       </svg>
-      <div className={classes.text} data-text="Loading..."></div>
+      <div className={classes.text} data-text={text ? text : 'Loading...'}></div>
     </div>
   );
 }

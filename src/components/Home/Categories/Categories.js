@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import classes from './Categories.module.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
-import recipesSlice, { setRecipes, updateRecipes } from '@/store/recipes-slice';
+import  { setRecipes, updateRecipes } from '@/store/recipes-slice';
 import useHttp from '../../../hooks/use-http';
 
 import Filters from './Filters';
@@ -24,7 +24,10 @@ export default function Categories() {
   const loadRecipes = async function (nextPage = false, currentPage) {
     // | New search logic
     if (!nextPage) {
-      const data = await fetchData(stateRecipes.userSearch);
+      const data = await fetchData({
+        query: stateRecipes.userSearch,
+        type: 'search',
+      });
       if (!data) return;
 
       const fetchedRecipes = data.recipes;
@@ -47,7 +50,8 @@ export default function Categories() {
     // Get next recipes from the API
     const nextPageUrl = stateRecipes.pages.next.href;
     const data = await fetchData(null, nextPageUrl);
-    const fetchedRecipes = data.recipes;
+    const fetchedRecipes = data?.recipes;
+    if (!fetchedRecipes) return;
 
     // Update recipes state with new recipes and link to the next page
     dispatch(updateRecipes(data));
@@ -106,19 +110,13 @@ export default function Categories() {
     if (!userSearch) return;
 
     //  If the user filter is active, display 6 recipes that suit the filter
-    if (userFilter.active)
-      setPageRecipes({
-        page: 1,
-        recipes: userFilter.recipes.slice(0, RECIPES_PER_PAGE),
-      });
-
     //  If the filter is deactivated show all loaded recipes
-    if (!userFilter.active)
-      setPageRecipes({
-        page: 1,
-        recipes: stateRecipes.recipes.slice(0, RECIPES_PER_PAGE),
-      });
-    //
+    setPageRecipes({
+      page: 1,
+      recipes: userFilter.active
+        ? userFilter.recipes.slice(0, RECIPES_PER_PAGE)
+        : stateRecipes.recipes.slice(0, RECIPES_PER_PAGE),
+    });
   }, [stateRecipes.userFilter]);
 
   return (
@@ -133,9 +131,16 @@ export default function Categories() {
         {!isLoading && (error || stateRecipes.recipes.length === 0) && (
           <NoRecipes error={error} />
         )}
-        {stateRecipes.userFilter.active &&
-          stateRecipes.userFilter.recipes.length === 0 && (
-            <NoRecipes message={'No recipes with set criteria found. Try applying other filters!'} />
+        {!isLoading &&
+          !error &&
+          stateRecipes.userFilter.active &&
+          stateRecipes.userFilter.recipes.length === 0 &&
+          stateRecipes.recipes.length !== 0 && (
+            <NoRecipes
+              message={
+                'No recipes with set criteria found. Try applying other filters!'
+              }
+            />
           )}
         {!isLoading && !error && stateRecipes.recipes.length !== 0 && (
           <Recipes recipes={pageRecipes.recipes} />

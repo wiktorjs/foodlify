@@ -1,0 +1,164 @@
+@import '@/styles/variables';
+@import '@/styles/mixins';
+
+.overlay-wrapper {
+  position: fixed;
+  height: 100vh;
+  width: 60rem;
+  background-color: rgba($color-white, 0.9);
+  top: 8rem;
+  right: 3rem;
+  padding: 3rem;
+  z-index: 2;
+
+  text-align: center;
+  transform: translateX(100%);
+  transition: transform 0.2s ease-in-out;
+
+  &.active {
+    transform: translate(0);
+  }
+
+  & h2 {
+    margin-bottom: 2rem;
+  }
+
+  @include respond(tab-port) {
+    padding-top: 10rem;
+    width: 100vw;
+    right: 0;
+    top: 0;
+    z-index: 2000;
+    transform: translate(0);
+    background-color: rgba($color-black, 0.5);
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity, visibility, .2s ease;
+
+    & h2 {
+      color: $color-white;
+      font-weight: 600;
+      font-size: 3rem;
+      margin-bottom: 5rem;
+    }
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.close {
+  position: absolute;
+  display: inline-block;
+  right: 3rem;
+  cursor: pointer;
+  height: 3rem;
+  width: 3rem;
+  fill: $color-white;
+
+  &:hover {
+    fill: var(--color-primary);
+  }
+
+  @include respond(tab-port) {
+    height: 4rem;
+    width: 4rem;
+    left: 4rem;
+    top: 4rem;
+  }
+}
+
+.recipes {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  padding-bottom: 12rem;
+}
+
+.card {
+  width: 50rem;
+  height: 20rem;
+  margin: 0 auto 2rem;
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: rgba($color-light-gray, 0.9);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  & .img {
+    display: inline-block;
+    height: 85%;
+    object-fit: contain;
+    background-color: #fff;
+    border-radius: 10px;
+    align-self: center;
+    margin-left: 2rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    border: 2px solid var(--color-black);
+
+    transition: border-color 0.2s ease;
+    will-change: border-color;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+
+    & .img {
+      border-color: var(--color-primary);
+    }
+
+    & .details h3 {
+      color: var(--color-primary);
+    }
+  }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 3rem;
+  gap: 2rem;
+
+  & h3 {
+    text-align: left;
+    transition: color 0.2s ease;
+    will-change: color;
+  }
+
+  & > * {
+    display: flex;
+    gap: 1rem;
+  }
+
+  & .general {
+    & span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+
+  & .actions {
+    gap: 2rem;
+  }
+}
+
+.icon {
+  height: 2.5rem;
+  width: 2.5rem;
+  cursor: pointer;
+
+  transition: fill 0.2s ease;
+  will-change: fill;
+  &:hover {
+    fill: var(--color-primary);
+  }
+}

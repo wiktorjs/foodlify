@@ -4,6 +4,7 @@ import classes from '../styles/Home.module.scss';
 import Header from '@/components/Home/Header/Header';
 import MainNavigation from '@/components/UI/MainNavigation/MainNavigation';
 import Categories from '@/components/Home/Categories/Categories';
+import OverlayWrapper from '@/components/UI/OverlayWrapper';
 
 export default function Home() {
   return (
