@@ -1,6 +1,6 @@
 import { Clock, Fire, Heart, ShoppingCart, User } from '@phosphor-icons/react';
 import classes from './RecipeCard.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeUserData } from '@/store/user-slice';
@@ -16,7 +16,6 @@ export default function RecipeCard({
   category,
   type,
 }) {
-
   const [state, setState] = useState({
     isBookmarked: false,
     isInCart: false,
@@ -53,6 +52,7 @@ export default function RecipeCard({
 
       // Update state with new bookmarks
       dispatch(changeUserData({ type: 'bookmarks', bookmarks: newBookmarks }));
+
     }
 
     // Same logic as for bookmarks
@@ -63,6 +63,7 @@ export default function RecipeCard({
 
       updateUser({ bookmarks, newCart, uID });
       dispatch(changeUserData({ type: 'cart', cart: newCart }));
+
     }
   };
 
@@ -71,11 +72,14 @@ export default function RecipeCard({
     const bookmarked = userSlice.bookmarks.find((recipe) => recipe.id === id);
     const inCart = userSlice.cart.find((recipe) => recipe.id === id);
 
+    console.log('use effect running');
+
     // Set it state to correct value to display suitable icons
     setState({
       isBookmarked: bookmarked ? true : false,
       isInCart: inCart ? true : false,
     });
+
   }, [userSlice.bookmarks, userSlice.cart]);
 
   return (
