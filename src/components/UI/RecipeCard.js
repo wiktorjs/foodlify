@@ -1,6 +1,6 @@
 import { Clock, Fire, Heart, ShoppingCart, User } from '@phosphor-icons/react';
 import classes from './RecipeCard.module.scss';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeUserData } from '@/store/user-slice';
@@ -20,7 +20,7 @@ export default function RecipeCard({
     isBookmarked: false,
     isInCart: false,
   });
-
+  
   const userSlice = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { updateUser } = useUser();

@@ -11,7 +11,7 @@ export default function AuthPage() {
     if (router.asPath === '/auth') {
       router.replace('/auth?type=sign-in');
     }
-  }, []);
+  }, [router]);
 
   return (
     <>

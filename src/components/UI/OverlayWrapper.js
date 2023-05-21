@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import classes from './Overlay.module.scss';
+import classes from './OverlayWrapper.module.scss';
 import RecipeCard from './RecipeCard';
 import { X } from '@phosphor-icons/react';
 

@@ -55,7 +55,7 @@ export default function Recipe({ recipeDetails }) {
           </div> */}
         </div>
 
-        <img src={recipe.image} className={classes.img} />
+        <img src={recipe.image} className={classes.img} alt={recipe.label} />
       </header>
 
       <main className={classes.main}>

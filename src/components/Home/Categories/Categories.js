@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import classes from './Categories.module.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
-import  { setRecipes, updateRecipes } from '@/store/recipes-slice';
+import { setRecipes, updateRecipes } from '@/store/recipes-slice';
 import useHttp from '../../../hooks/use-http';
 
 import Filters from './Filters';
@@ -17,17 +17,16 @@ import { RECIPES_PER_PAGE } from '@/store/config';
 export default function Categories() {
   const [pageRecipes, setPageRecipes] = useState({ recipes: null, page: 1 });
   const stateRecipes = useSelector((state) => state.recipes);
-  const [pageRequest, setPageRequest] = useState({nextPage: false})
+  const [pageRequest, setPageRequest] = useState({ nextPage: false });
   const dispatch = useDispatch();
 
   const { isLoading, fetchData, error } = useHttp();
 
   const loadRecipes = async function (nextPage = false, navigatedPage) {
-
     // | New search logic
     if (!nextPage) {
-      // 
-      setPageRequest({nextPage: false});
+      //
+      setPageRequest({ nextPage: false });
 
       const data = await fetchData({
         query: stateRecipes.userSearch,
@@ -52,7 +51,7 @@ export default function Categories() {
     // | Case when the last fetched recipes are being displayed
     const { page, recipes } = navigatedPage;
     // When the request to fetch another recipes was too quick, rember to which page user wanted to navigate
-    setPageRequest({nextPage: true, page});
+    setPageRequest({ nextPage: true, page });
 
     // Get next recipes from the API
     const nextPageUrl = stateRecipes.pages.next.href;
@@ -76,7 +75,9 @@ export default function Categories() {
     setPageRecipes({ page, recipes: [...recipes, ...recipesToAdd] });
   };
 
-  const displayPage = function (page = 1) {
+  const displayPage = function (page = 1, autoRequest = false) {
+    if(error && !autoRequest) return;
+
     const { userFilter } = stateRecipes;
     // Conditionally define page recipes positions in the array, depending on which page the user is currently at
     const firstRecipe = page === 1 ? 0 : RECIPES_PER_PAGE * (page - 1);
@@ -97,11 +98,9 @@ export default function Categories() {
   };
 
   useEffect(() => {
-    const { userSearch, recipes } = stateRecipes;
-
-    // If there is no user search return (to not create infinite loop). If there are recipes that have been already loaded display them and return.
-    if (!userSearch || recipes.length > 0) {
-      recipes.length > 0 && displayPage(pageRecipes.page);
+    // If there is no user search return (to not create infinite loop). If there are recipes that have been already loaded display them and return.  The second check is only to not send additional request upon file save and can be deleted in production mode.
+    if (!stateRecipes.userSearch || stateRecipes.recipes.length > 0) {
+      stateRecipes.recipes.length > 0 && displayPage(pageRecipes.page);
       return;
     }
 
@@ -125,13 +124,12 @@ export default function Categories() {
     });
   }, [stateRecipes.userFilter]);
 
-  const tooMuchRequestsHandler = () => {
+  const tooMuchRequestsHandler = useCallback(() => {
     // If the request was to display another recipes with the same search, navigate user to this page after the time between requests has passed.
-    if(pageRequest.nextPage) displayPage(pageRequest.page); 
-
+    if (pageRequest.nextPage) displayPage(pageRequest.page, true);
     // If the request was a new search, simply load the recipes after countdown ends.
     else loadRecipes();
-  }
+  });
 
   return (
     <section className={classes.section} id="#categories">

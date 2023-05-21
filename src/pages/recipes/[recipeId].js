@@ -26,7 +26,7 @@ export default function RecipePage({ id }) {
     }
 
     setRecipe(displayedRecipe);
-  }, []);
+  }, [id]);
 
   return (
     <>
