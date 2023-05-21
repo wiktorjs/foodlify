@@ -57,7 +57,7 @@
   cursor: pointer;
   height: 3rem;
   width: 3rem;
-  fill: $color-white;
+  fill: $color-black;
 
   &:hover {
     fill: var(--color-primary);
@@ -68,6 +68,7 @@
     width: 4rem;
     left: 4rem;
     top: 4rem;
+    fill: $color-white;
   }
 }
 

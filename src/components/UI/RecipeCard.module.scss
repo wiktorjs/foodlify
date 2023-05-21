@@ -80,8 +80,6 @@
         flex: 0 0 55%;
       }
     }
-
-    
   }
 
   &:hover {
@@ -92,8 +90,6 @@
       border-color: $color-primary;
     }
   }
-
- 
 }
 
 .icon {
@@ -132,13 +128,15 @@
   cursor: pointer;
   transition: transform 0.2s ease;
 
- @include respond(phone) {
-  height: 25rem;
- }
+  @include respond(phone) {
+    height: 25rem;
+  }
 
   & .img {
     display: inline-block;
-    height: 85%;
+
+    width: 35%;
+    height: auto;
     object-fit: contain;
     background-color: #fff;
     border-radius: 10px;
@@ -215,6 +213,4 @@
       color: var(--color-primary);
     }
   }
-
-  
 }

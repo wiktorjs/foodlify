@@ -16,7 +16,7 @@ export default function Countdown({ time, countdownHandler }) {
 
   useEffect(() => {
     count === 0 && countdownHandler();
-  }, [count]);
+  }, [count, countdownHandler]);
 
   return count;
 }
