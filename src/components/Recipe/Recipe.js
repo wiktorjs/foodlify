@@ -37,7 +37,6 @@ export default function Recipe({ recipeDetails }) {
 
   return (
     <>
-      <MainNavigation />
       <header className={classes.header}>
         <div className={classes['header-content']}>
           <h1>
@@ -45,7 +44,7 @@ export default function Recipe({ recipeDetails }) {
             <br />
             {recipe.label}
           </h1>
-          <div className={classes['icon-box']}>
+          {/* <div className={classes['icon-box']}>
             <div className={classes.icon} onClick={addBookmarkHandler}>
               <Heart weight={!isBookmarked ? 'bold' : 'fill'} fill={!isBookmarked ? '' : '#00c86b'} />
             </div>
@@ -53,7 +52,7 @@ export default function Recipe({ recipeDetails }) {
             <div className={classes.icon}>
               <ShoppingCart weight="bold" />
             </div>
-          </div>
+          </div> */}
         </div>
 
         <img src={recipe.image} className={classes.img} />

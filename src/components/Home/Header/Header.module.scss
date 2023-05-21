@@ -6,7 +6,7 @@
       rgba(0, 0, 0, 0.4),
       rgba(0, 0, 0, 0.1)
     ),
-    url('../../../img/header-background.jpg');
+    url('../../../img/header-background.webp');
   background-size: cover;
   position: absolute;
   top: 0;
@@ -96,8 +96,9 @@
 
   img {
     display: inline-block;
-    width: 70%;
-    object-fit: contain;
+    width: 70% !important;
+    height: auto !important;
+    object-fit: contain !important;
 
     filter: brightness(0.9);
   }

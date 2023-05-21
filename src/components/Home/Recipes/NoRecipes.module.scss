@@ -42,24 +42,40 @@
 }
 
 .wrapper.error {
-    gap: 1rem;
+  gap: 1rem;
+  .logo {
+    font-size: 6rem;
+  }
+
+  .error-box {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    color: var(--color-error);
+    font-size: 3rem;
+    gap: 2rem;
+  }
+
+  .content {
+    flex-direction: column;
+    gap: 2rem;
+  }
 
   .text {
     color: var(--color-error);
 
-    span {
-        font-weight: 700;
+    & .countdown {
+      display: inline-block;
+      margin-top: 2rem;
+      font-weight: 700;
+      font-size: 2.5rem;
     }
   }
-  .icon {
-    height: 8rem;
-    width: 8rem;
-    fill: var(--color-error);
-    margin-right: 3rem;
 
-    @include respond(tab-port) {
-      height: 12rem; width: 12rem;
-      margin-right: 1rem;
-    }
+  .icon {
+    margin: 0;
+    fill: var(--color-error);
+    height: 10rem;
+    width: 10rem;
   }
 }

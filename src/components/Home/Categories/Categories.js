@@ -17,13 +17,18 @@ import { RECIPES_PER_PAGE } from '@/store/config';
 export default function Categories() {
   const [pageRecipes, setPageRecipes] = useState({ recipes: null, page: 1 });
   const stateRecipes = useSelector((state) => state.recipes);
+  const [pageRequest, setPageRequest] = useState({nextPage: false})
   const dispatch = useDispatch();
 
   const { isLoading, fetchData, error } = useHttp();
 
-  const loadRecipes = async function (nextPage = false, currentPage) {
+  const loadRecipes = async function (nextPage = false, navigatedPage) {
+
     // | New search logic
     if (!nextPage) {
+      // 
+      setPageRequest({nextPage: false});
+
       const data = await fetchData({
         query: stateRecipes.userSearch,
         type: 'search',
@@ -44,8 +49,10 @@ export default function Categories() {
       return;
     }
 
-    // | Case when fetched recipes are coming to an end logic
-    const { page, recipes } = currentPage;
+    // | Case when the last fetched recipes are being displayed
+    const { page, recipes } = navigatedPage;
+    // When the request to fetch another recipes was too quick, rember to which page user wanted to navigate
+    setPageRequest({nextPage: true, page});
 
     // Get next recipes from the API
     const nextPageUrl = stateRecipes.pages.next.href;
@@ -105,7 +112,6 @@ export default function Categories() {
 
   useEffect(() => {
     const { userSearch, userFilter } = stateRecipes;
-    // console.log(userFilter)
     //  If there was no user search do not apply filter
     if (!userSearch) return;
 
@@ -119,6 +125,14 @@ export default function Categories() {
     });
   }, [stateRecipes.userFilter]);
 
+  const tooMuchRequestsHandler = () => {
+    // If the request was to display another recipes with the same search, navigate user to this page after the time between requests has passed.
+    if(pageRequest.nextPage) displayPage(pageRequest.page); 
+
+    // If the request was a new search, simply load the recipes after countdown ends.
+    else loadRecipes();
+  }
+
   return (
     <section className={classes.section} id="#categories">
       <Filters />
@@ -129,7 +143,7 @@ export default function Categories() {
       <div className={classes['recipes-box']}>
         {isLoading && !error && <Loader />}
         {!isLoading && (error || stateRecipes.recipes.length === 0) && (
-          <NoRecipes error={error} />
+          <NoRecipes error={error} retryRequest={tooMuchRequestsHandler} />
         )}
         {!isLoading &&
           !error &&

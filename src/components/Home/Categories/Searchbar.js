@@ -7,6 +7,7 @@ import { setUserSearch } from '@/store/recipes-slice';
 export default function Searchbar() {
   const userInput = useRef();
   const dispatch = useDispatch();
+  const stateRecipes = useSelector(state => state.recipes)
 
   const userSearchHandler = (e) => {
     e.preventDefault();
@@ -16,8 +17,7 @@ export default function Searchbar() {
     userInput.current.blur();
     
     // If the search term is empty or it's the search that user has already entered as a latest query, return
-    // if (searchTerm.length <= 0 || stateRecipes.userSearch === searchTerm) return;
-    if(searchTerm.length <=0) return;
+    if (searchTerm.length <= 0 || stateRecipes.userSearch === searchTerm) return;
 
     dispatch(setUserSearch(searchTerm));
 
@@ -28,7 +28,7 @@ export default function Searchbar() {
         
         <MagnifyingGlass className={classes.icon} weight="bold" />
         
-        <input className={classes.input} placeholder="Start searching"  type="text" ref={userInput}/>
+        <input className={classes.input} placeholder="Start searching" type="text" ref={userInput} id='search-term' />
         
         <button className={classes.reset} type='reset'> <X className={`${classes.icon}`} weight="bold" /> </button>
     

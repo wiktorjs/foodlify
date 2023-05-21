@@ -1,9 +1,9 @@
-import veganImg from '../img/vegan.jpg';
-import vegeImg from '../img/vege.jpg';
-import pescatarianImg from '../img/pescatarian.jpg';
-import glutenImg from '../img/gluten.jpg';
-import dairyImg from '../img/dairy.jpg';
-import alcoholImg from '../img/alcohol.jpg';
+import veganImg from '../img/vegan.webp';
+import vegeImg from '../img/vege.webp';
+import pescatarianImg from '../img/pescatarian.webp';
+import glutenImg from '../img/gluten.webp';
+import dairyImg from '../img/dairy.webp';
+import alcoholImg from '../img/alcohol.webp';
 
 export const CATEGORIES = [
   { name: 'Vegan', img: veganImg },

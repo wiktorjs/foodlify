@@ -38,6 +38,7 @@ export default function Input(props) {
         value={props.value}
         onChange={props.onChange}
         onBlur={props.onBlur}
+        autoComplete='off'
       />
 
       {props.type.for === 'password' && (
