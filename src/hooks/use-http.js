@@ -4,14 +4,14 @@ export default function useHttp() {
   const [error, setError] = useState(null);
 
   const validateRequestLimit = function () {
-    // | Limiting request to one per minute
-    const timeBetweenRequests = 5 * 1000;
+    // | Limiting request to one per 30s
+    const timeBetweenRequests = 15 * 1000;
     const currentTime = Date.now();
     const lastRequestTime = localStorage.getItem('lastRequestTime') || 0;
 
     if (currentTime - +lastRequestTime < timeBetweenRequests)
       throw new Error(
-        'Due to API limitations you can send only one request per 30 seconds. Please try again after this time has passed.'
+        'Due to API limitations you may send only one request per 15 seconds. Your request will be automatically sent in:'
       );
     //
 

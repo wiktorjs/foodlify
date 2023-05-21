@@ -4,7 +4,6 @@ import classes from '../styles/Home.module.scss';
 import Header from '@/components/Home/Header/Header';
 import MainNavigation from '@/components/UI/MainNavigation/MainNavigation';
 import Categories from '@/components/Home/Categories/Categories';
-import OverlayWrapper from '@/components/UI/OverlayWrapper';
 
 export default function Home() {
   return (
@@ -16,7 +15,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <MainNavigation />
+      <MainNavigation page='home' />
       <Header />
 
       <main className={classes.main}>
@@ -25,7 +24,3 @@ export default function Home() {
     </>
   );
 }
-
-// export const getStaticProps = function(context){
-
-// }

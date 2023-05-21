@@ -2,7 +2,7 @@ import useValidate from '@/hooks/use-validate';
 import classes from '../../components/Auth/Form.module.scss';
 import Loader from '../UI/Loader';
 import Form from './Form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logIn } from '@/store/user-slice';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -17,8 +17,9 @@ export default function Auth({ query }) {
     if(!user) return;
     
     dispatch(logIn(user));
-    router.push('/');
+    router.back();
   };
+
 
   return (
     <main className={classes.main}>

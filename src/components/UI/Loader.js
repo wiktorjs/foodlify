@@ -1,7 +1,7 @@
 import classes from './Loader.module.scss';
 export default function Loader({type, text}) {
   return (
-    <div id="loader" className={`${classes['loader']} ${type ? classes[type] : ''}`}>
+    <div id="loader" className={`${classes['loader']} ${classes[type]}`}>
       <svg className={classes['circle-outer']} viewBox="0 0 86 86">
         <circle className={classes.back} cx="43" cy="43" r="40"></circle>
         <circle className={classes.front} cx="43" cy="43" r="40"></circle>

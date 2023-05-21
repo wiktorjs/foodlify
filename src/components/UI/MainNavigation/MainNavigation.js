@@ -21,10 +21,7 @@ export default function MainNavigation({ page }) {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const logOutHandler = () => {
-    dispatch(logOut());
-    router.push('/');
-  };
+  const logOutHandler = () => dispatch(logOut());
 
   const overlayHandler = (e) => {
     const action = e.target.closest('div').id;
@@ -63,17 +60,24 @@ export default function MainNavigation({ page }) {
         </Link>
 
         <ul>
+          {userSlice.isLoggedIn && (
+            <p className={classes.welcome}>
+              Welcome back, <span>{userSlice.user}</span>
+            </p>
+          )}
+          
+          <li>
+            <Link href="/" className={classes.link}>
+              Home
+            </Link>
+          </li>
+
           {userSlice.isLoggedIn ? (
-            <>
-              <p className={classes.welcome}>
-                Welcome back, <span>{userSlice.user}</span>
+            <li>
+              <p className={classes.link} onClick={logOutHandler}>
+                Log out
               </p>
-              <li>
-                <p className={classes.link} onClick={logOutHandler}>
-                  Log out
-                </p>
-              </li>
-            </>
+            </li>
           ) : (
             <>
               <li>

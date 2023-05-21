@@ -1,6 +1,7 @@
 import classes from './Header.module.scss';
 import { ArrowRight } from '@phosphor-icons/react';
-import headerImage from '@/img/header-image.png'
+import headerImage from '@/img/header-image.webp'
+import Image from 'next/image';
 
 export default function Header() {
   return (
@@ -15,7 +16,7 @@ export default function Header() {
       </div>
 
       <div className={classes.image}>
-        <img src={headerImage.src} alt='Food bowl image' />
+        <Image width={'400'} height={'300'} src={headerImage.src} alt='Food bowl image' />
       </div>
     </header>
   );
