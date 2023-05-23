@@ -1,11 +1,11 @@
 
 import classes from './NavigationButton.module.scss';
 
-export default function NavigationButton({active, mobile, onClick}) {
+export default function NavigationButton({active, mobile, onClick, type}) {
 
   return (
     <button
-      className={`${classes.button} ${ active ? classes.active: ''} ${mobile ? classes.mobile : ''}`}
+      className={`${classes.button} ${ active ? classes.active: ''} ${mobile ? classes.mobile : ''} ${type ? classes[type] : ''}`}
       aria-label="Main Menu"
       aria-controls="mobile-navigation"
       aria-expanded={active}

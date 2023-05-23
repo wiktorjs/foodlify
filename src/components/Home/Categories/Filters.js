@@ -21,7 +21,7 @@ export default function Filters() {
     <>
       <div className={classes.wrapper}>
         <div className={classes.menu} onClick={openButtonHandler}>
-          <NavigationButton active={isActive} />
+          <NavigationButton active={isActive} type='filters' />
           <p>Filters</p>
         </div>
 

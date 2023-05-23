@@ -10,7 +10,7 @@ import OverlayWrapper from '../OverlayWrapper';
 import { useState } from 'react';
 import NavigationButton from '../NavigationButton';
 
-export default function MainNavigation({ page }) {
+export default function MainNavigation({ page, type, darkThemeActive }) {
   const [mobileNavIsActive, setMobileNavIsActive] = useState(false);
   const [overlay, setOverlay] = useState({
     type: null,
@@ -47,13 +47,15 @@ export default function MainNavigation({ page }) {
         mobile={true}
         active={mobileNavIsActive}
         onClick={mobileNavigationHandler}
+        type={type}
       />
       <nav
         className={`${classes.navigation} ${
           page === 'auth' ? classes.auth : ''
         } ${mobileNavIsActive ? classes['mobile--active'] : ''} ${
           overlay.isActive ? classes['overlay--active'] : ''
-        }`}
+        }
+        ${userSlice.darkTheme ? 'dark' : ''}`}
       >
         <Link className={classes.logo} href="/">
           Foodlify
@@ -95,7 +97,7 @@ export default function MainNavigation({ page }) {
 
           <li>
             <a href="#" className={classes['icon-box']}>
-              <ThemeSwitch />
+              <ThemeSwitch setDarkTheme={darkThemeActive} />
             </a>
           </li>
 

@@ -5,7 +5,11 @@ import Header from '@/components/Home/Header/Header';
 import MainNavigation from '@/components/UI/MainNavigation/MainNavigation';
 import Categories from '@/components/Home/Categories/Categories';
 
+import { useSelector } from 'react-redux';
+
 export default function Home() {
+  const {darkTheme} = useSelector(state => state.user);
+
   return (
     <>
       <Head>
@@ -18,7 +22,7 @@ export default function Home() {
       <MainNavigation page='home' />
       <Header />
 
-      <main className={classes.main}>
+      <main className={`${classes.main} ${darkTheme ? 'dark' : ''}`}>
         <Categories />
       </main>
     </>

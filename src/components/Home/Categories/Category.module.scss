@@ -12,7 +12,7 @@
   
     border-radius: 300px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
-    border: 2px solid var(--color-white);
+    border: 2px solid var(--color-white-static);
   
     transition: border-color, transform, box-shadow, 0.2s ease;
     will-change: border-color, transform, box-shadow;
@@ -31,7 +31,7 @@
   
     p {
       z-index: 2;
-      color: var(--color-white);
+      color: var(--color-white-static);
       font-weight: 600;
       text-shadow: var(--text-outline);
       font-size: 1.4rem;
@@ -44,7 +44,7 @@
     &.active {
       transform: scale(1.05) translateY(-2px);
       border-color: var(--color-primary);
-      // box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
   
       & img {
         filter: brightness(0.6);

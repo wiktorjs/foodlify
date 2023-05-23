@@ -81,7 +81,7 @@ export default function RecipeCard({
   }, [userSlice.bookmarks, userSlice.cart]);
 
   return (
-    <Link href={`/recipes/${id}`} className={classes[`wrapper-${type}`]}>
+    <Link href={`/recipes/${id}`} className={`${classes[`wrapper-${type}`]} ${userSlice.darkTheme ? classes.dark : ''}`}>
       <img src={img} alt={name} className={classes.img} />
 
       <div className={classes.details}>
@@ -130,14 +130,14 @@ export default function RecipeCard({
             <Heart
               onClick={recipeHandler.bind(null, 'bookmark')}
               className={classes['icon--action']}
-              weight={state.isBookmarked ? 'fill' : 'bold'}
-              fill={state.isBookmarked ? '#00c86b' : ''}
+              weight={state.isBookmarked ? 'fill' : 'regular'}
+              fill={state.isBookmarked ? '#00c86b' : `${userSlice.darkTheme ?  '#fdfdfd' : '#0d0d0d'}`}
             />
             <ShoppingCart
               onClick={recipeHandler.bind(null, 'cart')}
               className={classes['icon--action']}
-              weight="bold"
-              fill={state.isInCart ? '#00c86b' : ''}
+              weight="regular"
+              fill={state.isInCart ? '#00c86b' : `${userSlice.darkTheme ?  '#fdfdfd' : '#0d0d0d'}`}
             />
           </div>
         </div>

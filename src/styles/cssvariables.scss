@@ -1,8 +1,39 @@
 :root {
-    --color-primary: #00c86b;
-    --color-black: #0D0D0D;
+  --color-primary: #00c86b;
+  --color-primary-rgb: 0, 200, 107;
+
+  --color-white-static: #fdfdfd;
+  --color-black-static: #0d0d0d;
+
+  --color-error: #ec5e5e;
+  --text-outline: 1px 1px 0 #000;
+
+  body,
+  nav,
+  header,
+  main,
+  footer {
+    --color-black: #0d0d0d;
+
     --color-white: #fdfdfd;
+    --color-white-rgb: 253, 253, 253;
+
     --color-light-gray: #f3f3f3;
-    --color-error: #ec5e5e;
-    --text-outline: 1px 1px 0 #000;
+    --color-light-gray-rgb: 243, 243, 243;
+    
+
+    // Particular components
+
+    &.dark {
+      --color-black: #fdfdfd;
+      
+      --color-white: #0d0d0d;
+      --color-white-rgb: 73, 73, 73;
+
+      --color-light-gray: #2c2c2c;
+      --color-light-gray-rgb: 44, 44, 44;
+
+      color: var(--color-black);
+    }
   }
+}

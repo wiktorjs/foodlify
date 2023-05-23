@@ -14,13 +14,14 @@
   border-radius: 30px;
   transition: border-radius 0.5s ease;
   background-color: rgba(#fff, .7);
+  border: none;
 
   padding-inline: 2rem;
-  border-bottom: 2px solid transparent;
+  border: 1px solid rgba(#000, .1); 
 
   transition: border-bottom 0.5s ease-out;
   will-change: border-bottom;
-  outline: 1px solid rgba(#000, .1);
+
 
   @include respond(tab-port) {
     width: 95%;
@@ -33,7 +34,7 @@
 }
 
 .form:has(.input:focus) {
-  border-color: var(--color-primary);
+  border-bottom: 1px solid var(--color-primary);
 }
 
 /* styling of Input */
