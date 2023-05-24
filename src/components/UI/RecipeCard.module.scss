@@ -144,14 +144,15 @@
 
   @include respond(phone) {
     height: 25rem;
+    width: 80vw;
   }
 
   & .img {
     display: inline-block;
 
-    min-height: 75%;
-    width: 35%;
-    height: auto;
+
+    height: 85%;
+    aspect-ratio: 1 / 1;
     object-fit: contain;
     background-color: #fff;
     border-radius: 10px;
@@ -164,8 +165,7 @@
     will-change: border-color;
 
     @include respond(phone) {
-      height: auto;
-      width: 40%;
+      height: 55%;  
     }
   }
 
@@ -200,6 +200,7 @@
       @include respond(phone) {
         display: flex;
         flex-wrap: wrap;
+        flex-direction: column;
       }
     }
 

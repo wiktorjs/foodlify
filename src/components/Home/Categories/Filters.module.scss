@@ -124,3 +124,21 @@
     }
   }
 }
+
+.close {
+  display: none;
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  height: 3rem;
+  width: 3rem;
+  fill: var(--color-black);
+
+  @include respond(tab-port) {
+    display: block;
+  }
+
+  &:hover {
+    fill: var(--color-primary);
+  }
+}

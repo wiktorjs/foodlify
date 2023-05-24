@@ -5,6 +5,7 @@ import { CATEGORIES } from '@/store/categories';
 import ListItem from '@/components/UI/ListItem';
 import { useDispatch } from 'react-redux';
 import { setFilters } from '@/store/recipes-slice';
+import { X } from '@phosphor-icons/react';
 export default function Filters() {
   const remainingCategores = CATEGORIES.slice(6);
   const [isActive, setIsActive] = useState(false);
@@ -14,14 +15,13 @@ export default function Filters() {
     setIsActive((prevState) => !prevState);
   };
 
-
-  const resetFiltersHandler = () => dispatch(setFilters({type: 'RESET'}));
+  const resetFiltersHandler = () => dispatch(setFilters({ type: 'RESET' }));
 
   return (
     <>
       <div className={classes.wrapper}>
         <div className={classes.menu} onClick={openButtonHandler}>
-          <NavigationButton active={isActive} type='filters' />
+          <NavigationButton active={isActive} type="filters" />
           <p>Filters</p>
         </div>
 
@@ -32,8 +32,11 @@ export default function Filters() {
         >
           <hr className={classes.hr} />
           <ul className={classes.filters}>
+            <X className={classes.close} weight="bold" onClick={openButtonHandler} />
             {remainingCategores.map((category, i) => (
-              <ListItem key={i+6} id={i+6} type='FILTER'>{category}</ListItem>
+              <ListItem key={i + 6} id={i + 6} type="FILTER">
+                {category}
+              </ListItem>
             ))}
             <li onClick={resetFiltersHandler}>Clear all filters</li>
           </ul>

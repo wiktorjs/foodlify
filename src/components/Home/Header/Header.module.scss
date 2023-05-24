@@ -34,6 +34,8 @@
 
   @include respond(tab-port) {
     height: auto;
+    flex-direction: column-reverse;
+    gap: 0;
   }
 }
 
@@ -105,6 +107,11 @@
 
 
   @include respond(tab-port) {
-    display: none;
+    // display: none;
+    margin-top: 8rem;
+    padding: 5rem 5rem 0;
+    img {
+      width: 40% !important;
+    }
   }
 }
