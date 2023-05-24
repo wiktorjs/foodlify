@@ -1,4 +1,5 @@
 import Auth from '@/components/Auth/Auth';
+import Footer from '@/components/UI/Footer';
 import MainNavigation from '@/components/UI/MainNavigation/MainNavigation';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -17,6 +18,7 @@ export default function AuthPage() {
     <>
       <MainNavigation page="auth" />
       <Auth query={query} />
+      <Footer />
     </>
   );
 }

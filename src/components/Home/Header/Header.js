@@ -8,7 +8,7 @@ export default function Header() {
     <header className={classes.header}>
       <div className={classes.content}>
         <h1><span>Foodlify</span> - become your own private chef.</h1>
-        <a className={classes.button} href='#'>
+        <a className={classes.button} href='#recipes'>
           Browse Recipes
           <ArrowRight weight='bold' className={classes.icon} />
         </a>

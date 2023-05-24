@@ -10,7 +10,7 @@ import OverlayWrapper from '../OverlayWrapper';
 import { useState } from 'react';
 import NavigationButton from '../NavigationButton';
 
-export default function MainNavigation({ page, type, darkThemeActive }) {
+export default function MainNavigation({ type, darkThemeActive }) {
   const [mobileNavIsActive, setMobileNavIsActive] = useState(false);
   const [overlay, setOverlay] = useState({
     type: null,
@@ -51,10 +51,8 @@ export default function MainNavigation({ page, type, darkThemeActive }) {
       />
       <nav
         className={`${classes.navigation} ${
-          page === 'auth' ? classes.auth : ''
-        } ${mobileNavIsActive ? classes['mobile--active'] : ''} ${
-          overlay.isActive ? classes['overlay--active'] : ''
-        }
+          mobileNavIsActive ? classes['mobile--active'] : ''
+        } ${overlay.isActive ? classes['overlay--active'] : ''}
         ${userSlice.darkTheme ? 'dark' : ''}`}
       >
         <Link className={classes.logo} href="/">
@@ -67,7 +65,7 @@ export default function MainNavigation({ page, type, darkThemeActive }) {
               Welcome back, <span>{userSlice.user}</span>
             </p>
           )}
-          
+
           <li>
             <Link href="/" className={classes.link}>
               Home

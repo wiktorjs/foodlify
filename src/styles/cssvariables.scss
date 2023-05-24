@@ -23,19 +23,22 @@
 
     --color-light-gray: #f3f3f3;
     --color-light-gray-rgb: 243, 243, 243;
-    
 
+    --color-footer: #ebebeb;
+    
+    
     &.dark {
       --color-black: #fdfdfd;
       --color-black-rgb: 253, 253, 253;
-
+      
       --color-white: #0d0d0d;
       --color-white-rgb: 73, 73, 73;
       
-
+      
       --color-light-gray: #2c2c2c;
       --color-light-gray-rgb: 44, 44, 44;
-
+      
+      --color-footer: #222222;
 
       color: var(--color-black);
     }

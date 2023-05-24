@@ -6,6 +6,7 @@ import MainNavigation from '@/components/UI/MainNavigation/MainNavigation';
 import Categories from '@/components/Home/Categories/Categories';
 
 import { useSelector } from 'react-redux';
+import Footer from '@/components/UI/Footer';
 
 export default function Home() {
   const {darkTheme} = useSelector(state => state.user);
@@ -25,6 +26,8 @@ export default function Home() {
       <main className={`${classes.main} ${darkTheme ? 'dark' : ''}`}>
         <Categories />
       </main>
+      
+      <Footer />
     </>
   );
 }

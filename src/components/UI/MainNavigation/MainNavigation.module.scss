@@ -70,16 +70,6 @@
     }
   }
 
-  &.auth {
-    position: static;
-    top: 0;
-    left: 0;
-
-    @include respond(tab-port) {
-      position: fixed;
-    }
-  }
-
   @include respond(tab-port) {
     position: fixed;
     left: 0;

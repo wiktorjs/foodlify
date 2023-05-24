@@ -1,0 +1,42 @@
+.footer {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: var(--color-footer);
+
+  padding: 7rem 5rem;
+  gap: 2rem;
+
+  & .logo {
+    color: var(--color-primary);
+    font-size: 4rem;
+    font-weight: 700;
+  }
+
+  & ul {
+    list-style: none;
+    display: flex;
+    gap: 3rem;
+
+    & .link {
+      transition: color, border-color, 0.2s ease;
+      border-bottom: 1px solid transparent;
+      font-weight: 600;
+      padding: 2px 0;
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  .copyright {
+    font-size: 1.3rem;
+    opacity: .3;
+  }
+}

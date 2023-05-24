@@ -132,7 +132,7 @@ export default function Categories() {
   });
 
   return (
-    <section className={classes.section} id="#categories">
+    <section className={classes.section} id="recipes">
       <Filters />
       <MainCategories />
 
