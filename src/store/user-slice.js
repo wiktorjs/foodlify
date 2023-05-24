@@ -18,8 +18,8 @@ export const userSlice = createSlice({
      
     },
 
-    logOut: () => {
-      return initialState;
+    logOut: (state) => {
+      return {...initialState, darkTheme: state.darkTheme};
     },
 
     changeUserData: (state, action) => {

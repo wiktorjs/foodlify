@@ -11,7 +11,7 @@ export default function useHttp() {
 
     if (currentTime - +lastRequestTime < timeBetweenRequests)
       throw new Error(
-        'Due to API limitations you may send only one request per 15 seconds. Your request will be automatically sent in:'
+        'Due to API limitations you may send only one request per 15 seconds. Your request will be sent automatically in:'
       );
     //
 
