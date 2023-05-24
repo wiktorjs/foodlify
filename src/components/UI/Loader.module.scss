@@ -1,4 +1,4 @@
-
+@import '@/styles/mixins.scss';
 .loader {
   
   --front-color: #00c86b;
@@ -16,6 +16,11 @@
   grid-column: 1/-1;
   align-self: flex-start;
   justify-self: center;
+
+
+  @include respond(tab-port) {
+    transform: scale(.7);
+  }
 }
 
 .centered {

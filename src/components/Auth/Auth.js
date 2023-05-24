@@ -9,18 +9,17 @@ import { useRouter } from 'next/router';
 
 export default function Auth({ query }) {
   const { isLoading, error, validateUser } = useValidate();
-  const {darkTheme} = useSelector(state => state.user);
+  const { darkTheme } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const router = useRouter();
 
   const sendRequest = async (credentials) => {
     const user = await validateUser(credentials);
-    if(!user) return;
-    
+    if (!user) return;
+
     dispatch(logIn(user));
     router.back();
   };
-
 
   return (
     <main className={`${classes.main} ${darkTheme ? 'dark' : ''}`}>
@@ -31,13 +30,17 @@ export default function Auth({ query }) {
           : 'Log into your account'}
       </h3>
 
-
-      {!isLoading && <Form query={query} passCredentials={sendRequest} error={error} />}
-
-      {isLoading && !error && (
-        <Loader type="centered" text={`Signing ${query.type.slice(-2)}... || 'Loading'`} />
+      {!isLoading && (
+        <Form query={query} passCredentials={sendRequest} error={error} />
       )}
 
+      {isLoading && !error && (
+        <Loader
+          type="centered"
+          text={`Signing ${query.type.slice(-2) || 'Loading'}...`}
+        />
+      )}
+      
     </main>
   );
 }

@@ -139,7 +139,6 @@ export default function Categories() {
       <Searchbar />
 
       <div className={classes['recipes-box']}>
-      <Loader />
       
         {isLoading && !error && <Loader />}
         {!isLoading && (error || stateRecipes.recipes.length === 0) && (

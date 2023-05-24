@@ -10,6 +10,10 @@
   height: calc(100vh - 8rem);
   min-height: 50rem;
 
+  @include respond(tab-port) {
+    height: 100vh;
+  }
+
   @media only screen and (max-width: 310px) {
     padding: 1rem;
   }
