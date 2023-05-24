@@ -1,10 +1,12 @@
 import { Moon, Sun } from '@phosphor-icons/react';
 import classes from './ThemeSwitch.module.scss';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setDarkTheme } from '@/store/user-slice';
-export default function ThemeSwitch() {
-  const [isChecked, setIsChecked] = useState(false);
+function ThemeSwitch() {
+  const {darkTheme} = useSelector(state => state.user);
+
+  const [isChecked, setIsChecked] = useState(darkTheme || false);
   const inputRef = useRef();
   const dispatch = useDispatch();
 
@@ -43,3 +45,5 @@ export default function ThemeSwitch() {
     </div>
   );
 }
+
+export default ThemeSwitch;

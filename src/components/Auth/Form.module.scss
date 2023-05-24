@@ -8,6 +8,7 @@
   padding: 5rem;
   background-color: var(--color-light-gray);
   height: calc(100vh - 8rem);
+  min-height: 50rem;
 
   @media only screen and (max-width: 310px) {
     padding: 1rem;

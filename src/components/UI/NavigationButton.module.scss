@@ -43,7 +43,7 @@
       position: fixed;
       top: 3rem;
       left: 3rem;
-      background-color: rgba($color-white, 0.9);
+      background-color: rgba(var(--color-white-rgb), 0.9);
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 
       &.active {

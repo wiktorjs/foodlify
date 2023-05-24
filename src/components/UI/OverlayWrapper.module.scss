@@ -5,14 +5,14 @@
   position: fixed;
   height: 100vh;
   width: 60rem;
-  background-color: rgba($color-white, 0.9);
+  background-color: rgba(var(--color-white-rgb), 0.9);
   top: 8rem;
   right: 3rem;
   padding: 3rem;
   z-index: 2;
 
   text-align: center;
-  transform: translateX(100%);
+  transform: translateX(calc(100% + 3rem));
   transition: transform 0.2s ease-in-out;
 
   &.active {
@@ -34,7 +34,7 @@
     opacity: 0;
     visibility: hidden;
 
-    transition: opacity, visibility, .2s ease;
+    transition: opacity, visibility, 0.2s ease;
 
     & h2 {
       color: $color-white;
@@ -57,7 +57,7 @@
   cursor: pointer;
   height: 3rem;
   width: 3rem;
-  fill: $color-black;
+  fill: var(--color-black);
 
   &:hover {
     fill: var(--color-primary);
@@ -156,6 +156,7 @@
   height: 2.5rem;
   width: 2.5rem;
   cursor: pointer;
+  fill: var(--color-black);
 
   transition: fill 0.2s ease;
   will-change: fill;
@@ -163,3 +164,4 @@
     fill: var(--color-primary);
   }
 }
+

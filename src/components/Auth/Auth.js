@@ -31,11 +31,13 @@ export default function Auth({ query }) {
           : 'Log into your account'}
       </h3>
 
-      {isLoading && !error && (
-        <Loader type="centered" text={`Signing ${query.type.slice(-2)}...`} />
-      )}
 
       {!isLoading && <Form query={query} passCredentials={sendRequest} error={error} />}
+
+      {isLoading && !error && (
+        <Loader type="centered" text={`Signing ${query.type.slice(-2)}... || 'Loading'`} />
+      )}
+
     </main>
   );
 }

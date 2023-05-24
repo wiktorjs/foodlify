@@ -1,12 +1,13 @@
-import MainNavigation from '../UI/MainNavigation/MainNavigation';
 import classes from './Recipe.module.scss';
-import Ingredients from './Details';
+import Details from './Details';
 import { Heart, ShoppingCart } from '@phosphor-icons/react';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function Recipe({ recipeDetails }) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const addBookmarkHandler = () => setIsBookmarked(prevState => !prevState);
+  // const [isBookmarked, setIsBookmarked] = useState(false);
+  // const addBookmarkHandler = () => setIsBookmarked(prevState => !prevState);
+  const {darkTheme} = useSelector(state => state.user)
 
   const { recipe } = recipeDetails;
   // Genitive check
@@ -58,8 +59,8 @@ export default function Recipe({ recipeDetails }) {
         <img src={recipe.image} className={classes.img} alt={recipe.label} />
       </header>
 
-      <main className={classes.main}>
-        <Ingredients details={additionalDetails} />
+      <main className={`${classes.main} ${darkTheme ? 'dark' : ''}`}>
+        <Details details={additionalDetails} />
       </main>
     </>
   );

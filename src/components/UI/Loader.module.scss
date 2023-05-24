@@ -3,7 +3,7 @@
   
   --front-color: #00c86b;
   --back-color: #afe1ca;
-  --text-color: #0d0d0d;
+
   width: 100px;
   height: 64px;
   border-radius: 50px;
@@ -20,6 +20,7 @@
 
 .centered {
   align-self: center;
+  margin-top: 5rem;
 }
 
 .loader svg {
@@ -116,7 +117,7 @@
 }
 
 .loader .text::before {
-  color: var(--text-color);
+  color: var(--color-black);
 }
 
 .loader .text::after {
