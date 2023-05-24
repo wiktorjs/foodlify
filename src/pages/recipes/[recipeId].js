@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 export default function RecipePage({ id }) {
   const [recipe, setRecipe] = useState(undefined);
   const recipesSlice = useSelector((state) => state.recipes.recipes);
+  const {darkTheme} = useSelector(state => state.user);
 
   const { isLoading, fetchData, error } = useHttp();
 
@@ -33,7 +34,7 @@ export default function RecipePage({ id }) {
       <MainNavigation />
       {recipe && <Recipe recipeDetails={recipe} />}
       {!recipe && (
-        <main className="centered-content">
+        <main className={`centered-content ${darkTheme ? 'dark' : ''}`}>
           {!error && isLoading && <Loader type="centered" />}
           {error && !isLoading && <NoRecipes error={error} retryRequest={fetchRecipe} />}
         </main>

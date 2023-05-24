@@ -55,6 +55,7 @@ img {
   align-items: center;
   justify-content: center;
   padding: 5rem;
+  background-color: var(--color-light-gray);
 
   @include respond(tab-port) {
     height: 100vh;
