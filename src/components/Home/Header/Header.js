@@ -16,7 +16,7 @@ export default function Header() {
       </div>
 
       <div className={classes.image}>
-        <Image width={'400'} height={'300'} src={headerImage.src} alt='Food bowl image' />
+        <Image width={'400'} height={'300'} src={headerImage.src} alt='Food bowl image' priority={true} />
       </div>
     </header>
   );

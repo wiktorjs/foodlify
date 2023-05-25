@@ -19,6 +19,7 @@
     list-style: none;
     display: flex;
     gap: 3rem;
+    font-size: 2rem;
 
     & .link {
       transition: color, border-color, 0.2s ease;
@@ -36,7 +37,8 @@
   }
 
   .copyright {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
+    text-align: center;
     opacity: .3;
   }
 }

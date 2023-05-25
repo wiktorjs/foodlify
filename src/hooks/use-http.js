@@ -11,7 +11,7 @@ export default function useHttp() {
 
     if (currentTime - +lastRequestTime < timeBetweenRequests)
       throw new Error(
-        'Due to API limitations you may send only one request per 15 seconds. Your request will be sent automatically in:'
+        JSON.stringify({status: 403, message: 'Due to API limitations you may send only one request per 15 seconds. Your request will be sent automatically in:'})
       );
     //
 
@@ -38,7 +38,7 @@ export default function useHttp() {
 
       if (!res.ok)
         throw new Error(
-          `Failed to fetch data :(. Please try again later! (${res.status})`
+            JSON.stringify({status: 500, message: `Failed to fetch data :(. Please try again later.`})
         );
       const data = await res.json();
 
@@ -47,7 +47,7 @@ export default function useHttp() {
 
       //  If there is no data.count or it's empty throw an error stating that there were no recipes found
       if (!data.count || data.count === 0)
-        throw new Error('No recipes found. Try searching for something else!');
+        throw new Error(JSON.stringify({status: 404, message: 'No recipes found. Try searching for something else!'}));
 
       //  Make it so the pagination has only up to 10 pages
       const recipesCount = data.count <= 60 ? data.count : 60;
@@ -66,7 +66,7 @@ export default function useHttp() {
 
       return recipesObj;
     } catch (err) {
-      setError(err.message);
+      setError(JSON.parse(err.message));
     } finally {
       setIsLoading(false);
     }

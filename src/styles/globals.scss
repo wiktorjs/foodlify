@@ -50,6 +50,7 @@ img {
 
 
 .centered-content {
+  min-height: 50rem;
   height: calc(100vh - 11rem);
   display: flex;
   align-items: center;

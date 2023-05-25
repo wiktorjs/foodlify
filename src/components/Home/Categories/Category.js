@@ -7,15 +7,19 @@ import { setFilters } from '@/store/recipes-slice';
 function Category(props) {
   const { userFilter } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
-
+  const [filterActive, setFilterActive] = useState(false);
   const filterName = props.name.split(' ').join('-');
-  const filterActive = userFilter.filters.find(
-    (filter) => filter.name === filterName
-  );
 
   const filterRecipesHandler = () =>
     dispatch(setFilters({ name: filterName, id: props.id }));
   //
+
+  useEffect(() => {
+    const active = userFilter.filters.find((filter) => filter.name === filterName);
+
+    setFilterActive(active ? true : false);
+
+  }, [userFilter.filters]);
   return (
     <div
       className={`${classes.category} ${filterActive ? classes.active : ''}`}

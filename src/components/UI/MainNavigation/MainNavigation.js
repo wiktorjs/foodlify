@@ -19,9 +19,11 @@ export default function MainNavigation({ type, darkThemeActive }) {
 
   const userSlice = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const router = useRouter();
 
-  const logOutHandler = () => dispatch(logOut());
+  const logOutHandler = () => {
+    dispatch(logOut())
+    sessionStorage.removeItem('user');
+  };
 
   const overlayHandler = (e) => {
     const action = e.target.closest('div').id;

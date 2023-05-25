@@ -26,9 +26,9 @@ export default function Searchbar() {
     // prettier-ignore
     <form onSubmit={userSearchHandler} className={classes.form}>
         
-        <MagnifyingGlass className={classes.icon} weight="bold" />
+        <MagnifyingGlass className={classes.icon} weight="bold" onClick={userSearchHandler} />
         
-        <input className={classes.input} placeholder="Start searching" type="text" ref={userInput} id='search-term' />
+        <input className={classes.input} placeholder="Start searching" type="text" ref={userInput} id='search-term' autoComplete='off'/>
         
         <button className={classes.reset} type='reset'> <X className={`${classes.icon}`} weight="bold" /> </button>
     

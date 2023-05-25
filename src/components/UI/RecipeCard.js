@@ -20,7 +20,7 @@ export default function RecipeCard({
     isBookmarked: false,
     isInCart: false,
   });
-  
+
   const userSlice = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { updateUser } = useUser();
@@ -52,7 +52,6 @@ export default function RecipeCard({
 
       // Update state with new bookmarks
       dispatch(changeUserData({ type: 'bookmarks', bookmarks: newBookmarks }));
-
     }
 
     // Same logic as for bookmarks
@@ -63,7 +62,6 @@ export default function RecipeCard({
 
       updateUser({ bookmarks, newCart, uID });
       dispatch(changeUserData({ type: 'cart', cart: newCart }));
-
     }
   };
 
@@ -77,11 +75,15 @@ export default function RecipeCard({
       isBookmarked: bookmarked ? true : false,
       isInCart: inCart ? true : false,
     });
-
   }, [userSlice.bookmarks, userSlice.cart]);
 
   return (
-    <Link href={`/recipes/${id}`} className={`${classes[`wrapper-${type}`]} ${userSlice.darkTheme ? classes.dark : ''}`}>
+    <Link
+      href={`/recipes/${id}`}
+      className={`${classes[`wrapper-${type}`]} ${
+        userSlice.darkTheme ? classes.dark : ''
+      }`}
+    >
       <img src={img} alt={name} className={classes.img} />
 
       <div className={classes.details}>
@@ -131,13 +133,21 @@ export default function RecipeCard({
               onClick={recipeHandler.bind(null, 'bookmark')}
               className={classes['icon--action']}
               weight={state.isBookmarked ? 'fill' : 'regular'}
-              fill={state.isBookmarked ? '#00c86b' : `${userSlice.darkTheme ?  '#fdfdfd' : '#0d0d0d'}`}
+              fill={
+                state.isBookmarked
+                  ? '#00c86b'
+                  : `${userSlice.darkTheme ? '#fdfdfd' : '#0d0d0d'}`
+              }
             />
             <ShoppingCart
               onClick={recipeHandler.bind(null, 'cart')}
               className={classes['icon--action']}
               weight="regular"
-              fill={state.isInCart ? '#00c86b' : `${userSlice.darkTheme ?  '#fdfdfd' : '#0d0d0d'}`}
+              fill={
+                state.isInCart
+                  ? '#00c86b'
+                  : `${userSlice.darkTheme ? '#fdfdfd' : '#0d0d0d'}`
+              }
             />
           </div>
         </div>

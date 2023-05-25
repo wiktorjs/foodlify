@@ -14,7 +14,7 @@ export const userSlice = createSlice({
   reducers: {
     logIn: (state, action) => {
 
-      return {...action.payload, isLoggedIn: action.payload.user.length > 0 }
+      return {...action.payload, isLoggedIn: action.payload.user.length > 0, darkTheme: state.darkTheme }
      
     },
 

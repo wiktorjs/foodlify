@@ -1,6 +1,7 @@
 import RecipeCard from '../../UI/RecipeCard';
 
 export default function Recipes({ recipes }) {
+  console.log(recipes)
   return (
     <>
       {recipes?.map((recipeDetails) => {

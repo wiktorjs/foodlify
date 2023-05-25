@@ -18,6 +18,7 @@ export default function Auth({ query }) {
     if (!user) return;
 
     dispatch(logIn(user));
+    sessionStorage.setItem('user', JSON.stringify(user));
     router.back();
   };
 
