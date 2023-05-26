@@ -8,9 +8,10 @@ import Categories from '@/components/Home/Categories/Categories';
 import { useSelector } from 'react-redux';
 import Footer from '@/components/UI/Footer';
 import useAutoLogin from '@/hooks/use-auto-login';
+import Popup from '@/components/UI/Popup';
 
 export default function Home() {
-  const { darkTheme } = useSelector((state) => state.user);
+  const { notification } = useSelector((state) => state.user);
   useAutoLogin();
   
   return (
@@ -28,11 +29,12 @@ export default function Home() {
       <MainNavigation page="home" />
       <Header />
 
-      <main className={`${classes.main} ${darkTheme ? 'dark' : ''}`}>
+      <main className={`${classes.main}`}>
         <Categories />
       </main>
 
       <Footer />
+      {notification && <Popup message={notification} />}
     </>
   );
 }

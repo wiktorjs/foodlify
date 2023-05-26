@@ -6,6 +6,7 @@ const initialState = {
   bookmarks: [],
   cart: [],
   darkTheme: false,
+  notification: '',
 };
 
 export const userSlice = createSlice({
@@ -14,7 +15,7 @@ export const userSlice = createSlice({
   reducers: {
     logIn: (state, action) => {
 
-      return {...action.payload, isLoggedIn: action.payload.user.length > 0, darkTheme: state.darkTheme }
+      return {...action.payload, isLoggedIn: action.payload.user.length > 0, darkTheme: state.darkTheme, notification: '' }
      
     },
 
@@ -30,10 +31,13 @@ export const userSlice = createSlice({
 
     setDarkTheme: (state, action) => {
       state.darkTheme = action.payload;
-    }
+    },
 
+    setNotification: (state, action) => {
+      state.notification = action.payload;
+    }
   },
 });
 
-export const { logIn, logOut, changeUserData, setDarkTheme } = userSlice.actions;
+export const { logIn, logOut, changeUserData, setDarkTheme, setNotification } = userSlice.actions;
 export default userSlice.reducer;

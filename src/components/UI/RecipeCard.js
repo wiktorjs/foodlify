@@ -3,7 +3,7 @@ import classes from './RecipeCard.module.scss';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeUserData } from '@/store/user-slice';
+import { changeUserData, setNotification } from '@/store/user-slice';
 import useUser from '@/hooks/use-user';
 
 export default function RecipeCard({
@@ -28,7 +28,16 @@ export default function RecipeCard({
   const stopPropagation = (e) => e.preventDefault();
 
   const recipeHandler = async (actionType) => {
-    if (!userSlice.isLoggedIn) return;
+    if (!userSlice.isLoggedIn) {
+      !userSlice.notification &&
+        dispatch(
+          setNotification(
+            'Please log in to add recipes to bookmarks or shopping list.'
+          )
+        );
+      return;
+    }
+
     const { bookmarks, cart, uID } = userSlice;
     let newCart, newBookmarks;
 

@@ -1,7 +1,6 @@
 import classes from './Form.module.scss';
 import Input from './Input';
 import { useFormik } from 'formik';
-import useValidate from '@/hooks/use-validate';
 
 const username = {
   label: 'Username',

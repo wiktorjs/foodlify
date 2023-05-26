@@ -2,9 +2,8 @@ import useValidate from '@/hooks/use-validate';
 import classes from '../../components/Auth/Form.module.scss';
 import Loader from '../UI/Loader';
 import Form from './Form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logIn } from '@/store/user-slice';
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 export default function Auth({ query }) {
@@ -13,7 +12,11 @@ export default function Auth({ query }) {
   const router = useRouter();
 
   const sendRequest = async (credentials) => {
-    const user = await validateUser(credentials);
+    let user = await validateUser(credentials);
+
+    // If users signs up, send request to sign him in.
+    if (query.type === 'sign-up') user = await validateUser({...credentials, query: {type: 'sign-in'}});
+
     if (!user) return;
 
     dispatch(logIn(user));

@@ -55,10 +55,6 @@ export default function useValidate() {
           throw new Error(
             'There were trouble accessing the database. Please try again later.'
           );
-
-        // Log user in
-        const message = await postRes.json();
-        console.log(message);
       }
 
       // ! Sign in case
