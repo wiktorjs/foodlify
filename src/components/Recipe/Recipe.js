@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 export default function Recipe({ recipeDetails }) {
   // const [isBookmarked, setIsBookmarked] = useState(false);
   // const addBookmarkHandler = () => setIsBookmarked(prevState => !prevState);
-  const {darkTheme} = useSelector(state => state.user)
 
   const { recipe } = recipeDetails;
   // Genitive check
@@ -59,7 +58,7 @@ export default function Recipe({ recipeDetails }) {
         <img src={recipe.image} className={classes.img} alt={recipe.label} />
       </header>
 
-      <main className={`${classes.main} ${darkTheme ? 'dark' : ''}`}>
+      <main className={`${classes.main}`}>
         <Details details={additionalDetails} />
       </main>
     </>

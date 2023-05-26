@@ -3,11 +3,10 @@ import { useSelector } from 'react-redux';
 import classes from './NavigationButton.module.scss';
 
 export default function NavigationButton({active, mobile, onClick, type}) {
-  const {darkTheme } = useSelector(state => state.user)
 
   return (
     <button
-      className={`navBtn ${darkTheme ? 'dark' : '' } ${classes.button} ${ active ? classes.active: ''} ${mobile ? classes.mobile : ''} ${type ? classes[type] : ''}`}
+      className={` ${classes.button} ${ active ? classes.active: ''} ${mobile ? classes.mobile : ''} ${type ? classes[type] : ''}`}
       aria-label="Main Menu"
       aria-controls="mobile-navigation"
       aria-expanded={active}

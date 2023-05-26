@@ -14,6 +14,8 @@ function ThemeSwitch() {
     setIsChecked(inputRef.current.checked);
     localStorage.setItem('dTheme', inputRef.current.checked);
     dispatch(setDarkTheme(inputRef.current.checked));
+
+    document.querySelector('body').classList.toggle('dark');
   };
 
   useEffect(() => {
@@ -21,6 +23,8 @@ function ThemeSwitch() {
     const isDark = dTheme ? true : false;
     setIsChecked(isDark);
     dispatch(setDarkTheme(isDark));
+    
+    isDark && document.querySelector('body').classList.add('dark');
   }, []);
 
   return (

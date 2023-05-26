@@ -55,7 +55,7 @@ export default function MainNavigation({ type, darkThemeActive }) {
         className={`${classes.navigation} ${
           mobileNavIsActive ? classes['mobile--active'] : ''
         } ${overlay.isActive ? classes['overlay--active'] : ''}
-        ${userSlice.darkTheme ? 'dark' : ''}`}
+       `}
       >
         <Link className={classes.logo} href="/">
           Foodlify

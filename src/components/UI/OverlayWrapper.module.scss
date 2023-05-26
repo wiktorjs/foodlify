@@ -1,4 +1,3 @@
-@import '@/styles/variables';
 @import '@/styles/mixins';
 
 .overlay-wrapper {
@@ -30,14 +29,14 @@
     top: 0;
     z-index: 2000;
     transform: translate(0);
-    background-color: rgba($color-black, 0.5);
+    background-color: rgba(var(--color-black-static-rgb), 0.5);
     opacity: 0;
     visibility: hidden;
 
     transition: opacity, visibility, 0.2s ease;
 
     & h2 {
-      color: $color-white;
+      color: var(--color-white-static);
       font-weight: 600;
       font-size: 3rem;
       margin-bottom: 5rem;
@@ -68,7 +67,7 @@
     width: 4rem;
     left: 4rem;
     top: 4rem;
-    fill: $color-white;
+    fill: var(--color-white-static);
   }
 }
 
@@ -76,7 +75,7 @@
   height: 100%;
   width: 100%;
   overflow: auto;
-  padding-bottom: 12rem;
+  padding: 1rem 0 12rem;
 }
 
 .card {
@@ -86,7 +85,7 @@
   display: flex;
   border-radius: 10px;
   overflow: hidden;
-  background-color: rgba($color-light-gray, 0.9);
+  background-color: rgba(var(--color-light-gray-rgb), 0.9);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 
   cursor: pointer;
@@ -164,4 +163,3 @@
     fill: var(--color-primary);
   }
 }
-

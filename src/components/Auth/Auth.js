@@ -9,7 +9,6 @@ import { useRouter } from 'next/router';
 
 export default function Auth({ query }) {
   const { isLoading, error, validateUser } = useValidate();
-  const { darkTheme } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -23,7 +22,7 @@ export default function Auth({ query }) {
   };
 
   return (
-    <main className={`${classes.main} ${darkTheme ? 'dark' : ''}`}>
+    <main className={`${classes.main}`}>
       <h2 className={classes.logo}>Foodlify</h2>
       <h3 className={classes.text}>
         {query.type === 'sign-up'

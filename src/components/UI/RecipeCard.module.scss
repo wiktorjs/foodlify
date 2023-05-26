@@ -1,5 +1,4 @@
 @import '@/styles/mixins';
-@import '@/styles/variables';
 
 .wrapper-main {
   background-color: var(--color-light-gray);
@@ -69,7 +68,7 @@
       & p {
         margin-right: auto;
         padding: 1.5rem;
-        background-color: rgba($color-primary, 0.6);
+        background-color: rgba(var(--color-primary-rgb), 0.6);
         border-radius: 50px;
         font-size: 0.8rem;
         font-weight: 500;

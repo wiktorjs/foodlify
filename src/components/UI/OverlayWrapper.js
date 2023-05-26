@@ -10,7 +10,7 @@ export default function OverlayWrapper({ type, active, onClick }) {
     <div
       className={`overlay ${classes['overlay-wrapper']} ${
         active ? classes.active : ''
-      } ${userSlice.darkTheme ? 'dark' : ''}`}
+      }`}
     >
       <X className={classes.close} weight="bold" onClick={onClick}/>
       <h2>Your {type === 'bookmarks' ? type : 'shopping list'}</h2>
