@@ -3,10 +3,10 @@
 
 <!-- Project Description -->
 <p align="center">
-  Foodlify is a web application built with Next.js that allows users to browse recipes from the Edamam API. Users can sign up and their credentials will be securely saved in the Firebase database with passwords hashed using bcrypt. Users can apply filters to searched recipes to narrow down the results to their final needs. When logged in, users have an ability to mark recipes as bookmarks and add them to shopping list - this data will also be stored in database. The app also utilizes sessionStorage to keep users logged in after page refresh and localStorage to save user-selected theme.
-  <br />
-    <span style='font-weight: 600;'>You can try the live demo of the app <a href='https://foodlify.vercel.app'>here</a>.</span>
+  Foodlify is a web application built with Next.js that allows users to browse recipes from the Edamam API. Users can sign up and their credentials will be securely saved in the Firebase database with passwords hashed using bcrypt. Users can apply filters to searched recipes to narrow down the results to their final needs. When logged in, users have an ability to mark recipes as bookmarks and add them to shopping list - this data will also be stored in database. The app also utilizes sessionStorage to keep users logged in after page refresh and localStorage to save user-selected theme.   
 </p>
+
+<h4 align='center' style='font-weight: 600;'>You can try the live demo of the app <a href='https://foodlify.vercel.app'>here</a>.</h4>
 
 <!-- Table of Contents -->
 
