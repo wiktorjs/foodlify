@@ -30,12 +30,14 @@
 - Browse recipes from the Edamam API
 - Search for specific recipes
 - Apply filters to recipes
+- Handle too many request coming from users
 - Mark recipes as bookmarks and add them to shopping list 
+<!-- - Keep fetched recipes saved in sessionStorage -->
 
 <!-- Known Issues -->
 ## Known Issues
 
-- Issue 1: The image stored has an expiration date. Therefore, after this time has passed, recipes saved in bookmarks and shopping list will display alt image beacuse of 403 error.
+- Issue 1: The image stored in database as bookmark has an expiration date in its link. Therefore, after specified time has passed, recipes saved in bookmarks and shopping list will display alt text beacuse of 403 error.
 
 <!-- Installation -->
 

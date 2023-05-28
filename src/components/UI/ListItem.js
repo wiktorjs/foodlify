@@ -8,7 +8,7 @@ export default function ListItem(props) {
   let filterName, filterActive;
   const [checked, setIsChecked] = useState(false);
 
-  const { userFilter } = useSelector((state) => state.recipes);
+  const { userFilter, userSearch } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
 
   if (props.type === 'FILTER') {
@@ -22,8 +22,8 @@ export default function ListItem(props) {
     if (props.type === 'INGREDIENT') setIsChecked((prevState) => !prevState);
 
     if (props.type !== 'FILTER') return;
-
-    dispatch(setFilters({ name: filterName, id: props.id }));
+    
+    userSearch && dispatch(setFilters({ name: filterName, id: props.id }));
   };
 
   return (

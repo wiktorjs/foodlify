@@ -25,7 +25,7 @@ function ThemeSwitch() {
     dispatch(setDarkTheme(isDark));
     
     isDark && document.querySelector('body').classList.add('dark');
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={classes.toggleWrapper}>

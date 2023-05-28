@@ -110,16 +110,16 @@ export default function Categories() {
   }, [stateRecipes.userSearch]);
 
   useEffect(() => {
-    const { userSearch, userFilter } = stateRecipes;
+
     //  If there was no user search do not apply filter
-    if (!userSearch) return;
+    if (!stateRecipes.userSearch) return;
 
     //  If the user filter is active, display 6 recipes that suit the filter
     //  If the filter is deactivated show all loaded recipes
     setPageRecipes({
       page: 1,
-      recipes: userFilter.active
-        ? userFilter.recipes.slice(0, RECIPES_PER_PAGE)
+      recipes: stateRecipes.userFilter.active
+        ? stateRecipes.userFilter.recipes.slice(0, RECIPES_PER_PAGE)
         : stateRecipes.recipes.slice(0, RECIPES_PER_PAGE),
     });
   }, [stateRecipes.userFilter]);
@@ -129,7 +129,7 @@ export default function Categories() {
     if (pageRequest.nextPage) displayPage(pageRequest.page, true);
     // If the request was a new search, simply load the recipes after countdown ends.
     else loadRecipes();
-  });
+  }, [pageRequest]);
 
   return (
     <section className={classes.section} id="recipes">

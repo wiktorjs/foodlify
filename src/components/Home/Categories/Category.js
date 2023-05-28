@@ -5,21 +5,25 @@ import React, { useEffect, useState } from 'react';
 import { setFilters } from '@/store/recipes-slice';
 
 function Category(props) {
-  const { userFilter } = useSelector((state) => state.recipes);
+  const { userFilter, userSearch } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
   const [filterActive, setFilterActive] = useState(false);
-  const filterName = props.name.split(' ').join('-');
 
   const filterRecipesHandler = () =>
-    dispatch(setFilters({ name: filterName, id: props.id }));
+    userSearch &&
+    dispatch(
+      setFilters({ name: props.name.split(' ').join('-'), id: props.id })
+    );
   //
 
   useEffect(() => {
-    const active = userFilter.filters.find((filter) => filter.name === filterName);
+    const active = userFilter.filters.find(
+      (filter) => filter.name === props.name.split(' ').join('-')
+    );
 
     setFilterActive(active ? true : false);
-
   }, [userFilter.filters]);
+
   return (
     <div
       className={`${classes.category} ${filterActive ? classes.active : ''}`}

@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeUserData, setNotification } from '@/store/user-slice';
 import useUser from '@/hooks/use-user';
 
+
+
 export default function RecipeCard({
   id,
   img,
@@ -37,7 +39,7 @@ export default function RecipeCard({
         );
       return;
     }
-
+    const storedUser = JSON.parse(sessionStorage.getItem('user'));
     const { bookmarks, cart, uID } = userSlice;
     let newCart, newBookmarks;
 
@@ -61,6 +63,8 @@ export default function RecipeCard({
 
       // Update state with new bookmarks
       dispatch(changeUserData({ type: 'bookmarks', bookmarks: newBookmarks }));
+
+      sessionStorage.setItem('user', JSON.stringify({...storedUser, bookmarks: newBookmarks}));
     }
 
     // Same logic as for bookmarks
@@ -71,6 +75,8 @@ export default function RecipeCard({
 
       updateUser({ bookmarks, newCart, uID });
       dispatch(changeUserData({ type: 'cart', cart: newCart }));
+
+      sessionStorage.setItem('user', JSON.stringify({...storedUser, cart: newCart}));
     }
   };
 
@@ -84,7 +90,7 @@ export default function RecipeCard({
       isBookmarked: bookmarked ? true : false,
       isInCart: inCart ? true : false,
     });
-  }, [userSlice.bookmarks, userSlice.cart]);
+  }, [userSlice.bookmarks, userSlice.cart, id]);
 
   return (
     <Link

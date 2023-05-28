@@ -6,7 +6,7 @@ import MainNavigation from '@/components/UI/MainNavigation/MainNavigation';
 import useAutoLogin from '@/hooks/use-auto-login';
 import useHttp from '@/hooks/use-http';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function RecipePage({ id }) {
@@ -17,10 +17,10 @@ export default function RecipePage({ id }) {
   useAutoLogin();
   const { isLoading, fetchData, error } = useHttp();
 
-  const fetchRecipe = async () => {
+  const fetchRecipe = useCallback(async () => {
     const data = await fetchData({ query: id, type: 'recipe' });
     setRecipe(data);
-  };
+  }, []);
 
   useEffect(() => {
     const displayedRecipe = recipesSlice.find((recipe) => recipe.id === id);
@@ -31,7 +31,7 @@ export default function RecipePage({ id }) {
     }
 
     setRecipe(displayedRecipe);
-  }, [id]);
+  }, [id, recipesSlice, fetchRecipe]);
 
   return (
     <>

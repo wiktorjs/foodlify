@@ -9,5 +9,5 @@ export default function useAutoLogin() {
     if (isLoggedIn) return;
     const user = sessionStorage.getItem('user');
     user && dispatch(logIn(JSON.parse(user)));
-  }, [isLoggedIn]);
+  }, [isLoggedIn, dispatch]);
 }
