@@ -3,6 +3,7 @@ import classes from './Searchbar.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
 import { setUserSearch } from '@/store/recipes-slice';
+import { setNotification } from '@/store/user-slice';
 
 export default function Searchbar() {
   const userInput = useRef();
@@ -20,7 +21,7 @@ export default function Searchbar() {
     if (searchTerm.length <= 0 || stateRecipes.userSearch === searchTerm) return;
 
     dispatch(setUserSearch(searchTerm));
-
+    dispatch(setNotification(''));
   }
   return (
     // prettier-ignore

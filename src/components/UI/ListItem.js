@@ -3,6 +3,7 @@ import classes from './ListItem.module.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilters } from '@/store/recipes-slice';
+import { setNotification } from '@/store/user-slice';
 
 export default function ListItem(props) {
   let filterName, filterActive;
@@ -22,7 +23,13 @@ export default function ListItem(props) {
     if (props.type === 'INGREDIENT') setIsChecked((prevState) => !prevState);
 
     if (props.type !== 'FILTER') return;
-    
+
+    !userSearch &&
+      dispatch(
+        setNotification(
+          'In order to apply filters, please search for some recipes first.'
+        )
+      );
     userSearch && dispatch(setFilters({ name: filterName, id: props.id }));
   };
 

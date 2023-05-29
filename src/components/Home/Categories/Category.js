@@ -3,17 +3,25 @@ import classes from './Category.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { setFilters } from '@/store/recipes-slice';
+import { setNotification } from '@/store/user-slice';
 
 function Category(props) {
   const { userFilter, userSearch } = useSelector((state) => state.recipes);
   const dispatch = useDispatch();
   const [filterActive, setFilterActive] = useState(false);
 
-  const filterRecipesHandler = () =>
+  const filterRecipesHandler = () => {
+    !userSearch &&
+      dispatch(
+        setNotification(
+          'In order to apply filters, please search for some recipes first.'
+        )
+      );
     userSearch &&
-    dispatch(
-      setFilters({ name: props.name.split(' ').join('-'), id: props.id })
-    );
+      dispatch(
+        setFilters({ name: props.name.split(' ').join('-'), id: props.id })
+      );
+  };
   //
 
   useEffect(() => {

@@ -13,6 +13,7 @@ import NoRecipes from '../Recipes/NoRecipes';
 import Searchbar from './Searchbar';
 import Pagination from '../../UI/Pagination';
 import { RECIPES_PER_PAGE } from '@/store/config';
+import { setNotification } from '@/store/user-slice';
 
 export default function Categories() {
   const [pageRecipes, setPageRecipes] = useState({ recipes: null, page: 1 });
@@ -110,10 +111,6 @@ export default function Categories() {
   }, [stateRecipes.userSearch]);
 
   useEffect(() => {
-
-    //  If there was no user search do not apply filter
-    if (!stateRecipes.userSearch) return;
-
     //  If the user filter is active, display 6 recipes that suit the filter
     //  If the filter is deactivated show all loaded recipes
     setPageRecipes({

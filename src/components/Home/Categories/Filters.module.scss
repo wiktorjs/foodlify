@@ -39,7 +39,7 @@
     height: 100%;
 
     & .filters {
-      background-color: var(--color-light-gray);
+      // background-color: var(--color-light-gray);
     }
   }
 
@@ -52,7 +52,7 @@
   }
 
   & .filters {
-    height: 99%;
+    height: 100%;
     width: 100%;
     padding: 2rem 2rem 0;
     list-style: none;
@@ -63,10 +63,7 @@
 
     display: flex;
     flex-direction: column;
-
-    transition: background-color 0.5s linear;
-    will-change: background-color;
-
+    
     & li:last-of-type {
       cursor: pointer;
       align-self: center;
