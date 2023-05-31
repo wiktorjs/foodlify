@@ -33,6 +33,7 @@
     border: 2px solid #e5e5e5;
     background-color: rgba(var(--color-white-rgb), .5);
     color: var(--color-black);
+    font-size: inherit;
 
     transition: border-bottom 0.3s ease;
 
@@ -45,7 +46,6 @@
       }
 
       &::placeholder {
-        font-size: 1.6rem;
         color: var(--color-black);
       }
   }
