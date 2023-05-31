@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeUserData, setNotification } from '@/store/user-slice';
 import useUser from '@/hooks/use-user';
-
-
+import placeholderImg from '@/img/access-denied.webp';
 
 export default function RecipeCard({
   id,
@@ -64,7 +63,10 @@ export default function RecipeCard({
       // Update state with new bookmarks
       dispatch(changeUserData({ type: 'bookmarks', bookmarks: newBookmarks }));
 
-      sessionStorage.setItem('user', JSON.stringify({...storedUser, bookmarks: newBookmarks}));
+      sessionStorage.setItem(
+        'user',
+        JSON.stringify({ ...storedUser, bookmarks: newBookmarks })
+      );
     }
 
     // Same logic as for bookmarks
@@ -76,7 +78,10 @@ export default function RecipeCard({
       updateUser({ bookmarks, newCart, uID });
       dispatch(changeUserData({ type: 'cart', cart: newCart }));
 
-      sessionStorage.setItem('user', JSON.stringify({...storedUser, cart: newCart}));
+      sessionStorage.setItem(
+        'user',
+        JSON.stringify({ ...storedUser, cart: newCart })
+      );
     }
   };
 
@@ -92,6 +97,8 @@ export default function RecipeCard({
     });
   }, [userSlice.bookmarks, userSlice.cart, id]);
 
+  const imgDeniedHandler = (e) => (e.target.src = placeholderImg.src);
+  
   return (
     <Link
       href={`/recipes/${id}`}
@@ -99,7 +106,12 @@ export default function RecipeCard({
         userSlice.darkTheme ? classes.dark : ''
       }`}
     >
-      <img src={img} alt={name} className={classes.img} />
+      <img
+        src={img}
+        alt={name}
+        className={classes.img}
+        onError={imgDeniedHandler}
+      />
 
       <div className={classes.details}>
         {type !== 'main' && (

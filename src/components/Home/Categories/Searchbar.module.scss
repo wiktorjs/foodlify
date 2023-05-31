@@ -48,11 +48,16 @@
 
   border: 1px solid transparent;
   padding: 1rem 0 1rem 1rem;
-  &::-webkit-input-placeholder {
+  
+  &::placeholder {
     font-family: inherit;
-    font-size: 1.6rem;
+
     font-weight: 400;
     color: rgba(var(--color-black-rgb) 0.3);
+  }
+
+  @include respond(big-desk) {
+    padding-bottom: 1.2rem;
   }
 }
 

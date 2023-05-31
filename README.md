@@ -14,7 +14,6 @@
 
 - [Table of Contents](#table-of-contents)
 - [Features](#features)
-- [Known Issues](#known-issues)
 - [Installation](#installation)
 
 <!-- Features -->
@@ -35,9 +34,9 @@
 <!-- - Keep fetched recipes saved in sessionStorage -->
 
 <!-- Known Issues -->
-## Known Issues
+<!-- ## Known Issues -->
 
-- Issue 1: The image stored in database as bookmark has an expiration date in its link. Therefore, after specified time has passed, recipes saved in bookmarks and shopping list will display alt text beacuse of 403 error.
+
 
 <!-- Installation -->
 
