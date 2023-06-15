@@ -34,7 +34,7 @@ export default function ListItem(props) {
   };
 
   return (
-    <li id="checklist" className={classes.item}>
+    <li className={classes.item}>
       <div className={classes.checkbox}>
         <input
           className={classes.input}
