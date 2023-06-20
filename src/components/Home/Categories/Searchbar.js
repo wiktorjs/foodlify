@@ -29,7 +29,7 @@ export default function Searchbar() {
         
         <MagnifyingGlass className={classes.icon} weight="bold" onClick={userSearchHandler} />
         
-        <input className={classes.input} placeholder="Start searching" type="text" ref={userInput} id='search-term' autoComplete='off'/>
+        <input className={classes.input} placeholder="Start searching eg. &quot;pasta&quot;" type="text" ref={userInput} id='search-term' autoComplete='off'/>
         
         <button className={classes.reset} type='reset'> <X className={`${classes.icon}`} weight="bold" /> </button>
     

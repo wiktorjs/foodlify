@@ -5,10 +5,11 @@ import ThemeSwitch from './ThemeSwitch';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '@/store/user-slice';
-import { useRouter } from 'next/router';
 import OverlayWrapper from '../OverlayWrapper';
 import { useState } from 'react';
 import NavigationButton from '../NavigationButton';
+import useLoginRequest from '@/hooks/use-login-request';
+import useValidate from '@/hooks/use-validate';
 
 export default function MainNavigation({ type, darkThemeActive }) {
   const [mobileNavIsActive, setMobileNavIsActive] = useState(false);
@@ -17,11 +18,13 @@ export default function MainNavigation({ type, darkThemeActive }) {
     isActive: false,
   });
 
+  const [deleteOverlay, setDeleteOverlay] = useState(false);
+
   const userSlice = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const logOutHandler = () => {
-    dispatch(logOut())
+    dispatch(logOut());
     sessionStorage.removeItem('user');
   };
 
@@ -42,6 +45,15 @@ export default function MainNavigation({ type, darkThemeActive }) {
 
   const mobileNavigationHandler = () =>
     setMobileNavIsActive((prevState) => !prevState);
+
+  const { sendRequest } = useLoginRequest();
+  const { validateUser } = useValidate();
+
+  const deleteAccHandler = async () => {
+    await validateUser({ username: userSlice.uID, query: { type: 'DELETE' } });
+    dispatch(logOutHandler);
+    setDeleteOverlay(false);
+  };
 
   return (
     <>
@@ -75,11 +87,23 @@ export default function MainNavigation({ type, darkThemeActive }) {
           </li>
 
           {userSlice.isLoggedIn ? (
-            <li>
-              <p className={classes.link} onClick={logOutHandler}>
-                Log out
-              </p>
-            </li>
+            <>
+              <li>
+                <p className={classes.link} onClick={logOutHandler}>
+                  Log out
+                </p>
+              </li>
+              {userSlice.uID !== '-NYNRvOsFsGIXwPSc2MB' && (
+                <li>
+                  <p
+                    className={`${classes.link} ${classes.delete}`}
+                    onClick={() => setDeleteOverlay(true)}
+                  >
+                    Delete Account
+                  </p>
+                </li>
+              )}
+            </>
           ) : (
             <>
               <li>
@@ -91,6 +115,21 @@ export default function MainNavigation({ type, darkThemeActive }) {
                 <Link href="/auth?type=sign-up" className={classes.link}>
                   Sign Up
                 </Link>
+              </li>
+
+              <li>
+                <p
+                  className={`${classes.link} ${classes.demo}`}
+                  onClick={() =>
+                    sendRequest({
+                      username: 'demoacc',
+                      password: 'demoaccount12!',
+                      query: { type: 'sign-in' },
+                    })
+                  }
+                >
+                  Use Demo Account
+                </p>
               </li>
             </>
           )}
@@ -136,6 +175,16 @@ export default function MainNavigation({ type, darkThemeActive }) {
         active={overlay.isActive}
         onClick={closeOverlayHandler}
       />
+
+      <div className={`${classes.confirmation} ${deleteOverlay ? classes.visible : ''}`}>
+        <div className={classes['confirmation-box']}>
+          <p>Are you sure? This action is irreversible!</p>
+          <div>
+            <button onClick={() => setDeleteOverlay(false)}>Take me back</button>
+            <button onClick={deleteAccHandler}>Confirm</button>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

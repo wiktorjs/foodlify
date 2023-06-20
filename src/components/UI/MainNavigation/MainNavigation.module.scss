@@ -47,8 +47,16 @@
 
         &:hover,
         &:focus {
-          border-color: var(--color-primary);
+          border-color: currentColor;
           color: var(--color-primary);
+        }
+
+        &.demo {
+          color: var(--color-primary);
+        }
+
+        &.delete {
+          color: var(--color-error);
         }
       }
 
@@ -83,11 +91,10 @@
     flex-direction: column;
     justify-content: start;
     padding-top: 25vh;
-    
 
     opacity: 0;
     visibility: hidden;
-    transition: opacity, visibility, filter, .2s ease-out;
+    transition: opacity, visibility, filter, 0.2s ease-out;
     will-change: filter;
 
     &.mobile--active {
@@ -96,7 +103,7 @@
     }
 
     &.overlay--active {
-      filter: blur(5px) brightness(.5);
+      filter: blur(5px) brightness(0.5);
     }
 
     & .logo {
@@ -118,7 +125,7 @@
   & span {
     color: var(--color-primary);
     font-weight: 700;
-    margin-left: .3rem;
+    margin-left: 0.3rem;
   }
 
   @include respond(tab-port) {
@@ -131,8 +138,8 @@
 // Bookmarks and recipes in cart count
 .count {
   position: absolute;
-  bottom: -.8rem;
-  right: -.8rem;
+  bottom: -0.8rem;
+  right: -0.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -143,8 +150,8 @@
   height: 2rem;
   width: 2rem;
   border-radius: 100px;
-  box-shadow: 0 1px 1px rgba(0,0,0, .3);
-  background-color: rgba(var(--color-primary-rgb), .8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  background-color: rgba(var(--color-primary-rgb), 0.8);
 
   @include respond(tab-port) {
     height: 3rem;
@@ -160,5 +167,81 @@
   @include respond(tab-port) {
     height: 5rem;
     width: 5rem;
+  }
+}
+
+// ! ACCOUNT DELETION CONFIRMATION
+.confirmation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity, visiblity, .2s ease;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  &-box {
+    padding: 10rem;
+    border-radius: 10px;
+    background-color: var(--color-white-static);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5rem;
+
+    & > p {
+      text-align: center;
+      font-weight: 700;
+      font-size: 2rem;
+      color: var(--color-error);
+    }
+
+    & > div > button {
+      padding: 2rem;
+      width: 20rem;
+      border-radius: 5px;
+      outline: none;
+      border: none;
+      background-color: var(--color-error);
+      font-weight: 600;
+      color: var(--color-white-static);
+      cursor: pointer;
+      transition: transform, opacity, 0.2s ease;
+      font-size: 1.6rem;
+
+      &:first-of-type {
+        background-color: var(--color-primary);
+      }
+
+      &:focus,
+      &:hover {
+        transform: translateY(-3px);
+      }
+    }
+
+    & > div {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+
+      &:has(button:focus) button:not(:focus),
+      &:has(button:hover) button:not(:hover) {
+        opacity: 0.8;
+      }
+    }
   }
 }

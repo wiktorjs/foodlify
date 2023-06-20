@@ -10,6 +10,21 @@ export default function useValidate() {
       setError(null);
       setIsLoading(true);
 
+      // ! ACCOUNT DELETION 
+      if (query.type === 'DELETE') {
+        const postRes = await fetch('/api/fetch-user', {
+          method: 'POST',
+          body: JSON.stringify({ username, query }),
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (!postRes.ok)
+          throw new Error('Something went wrong. Please try again later.');
+
+        return;
+      }
+
+      // ! LOG IN / SIGN UP
       const getRes = await fetch('/api/fetch-user');
       if (!getRes.ok)
         throw new Error(
@@ -29,8 +44,9 @@ export default function useValidate() {
 
       // ! Sign up case
       if (query.type === 'sign-up') {
-        if (foundUser)
+        if (foundUser) {
           throw new Error('Username already exists. Sign in to continue.');
+        }
 
         // Generate salt and hash entered password
         const salt = bcrypt.genSaltSync(10);
@@ -62,10 +78,7 @@ export default function useValidate() {
         if (!foundUser) throw new Error('Username not found.');
 
         // Hash entered password with salt that was generated upon account creation
-        const enteredHashedPassword = bcrypt.hashSync(
-          password,
-          foundUser.salt
-        );
+        const enteredHashedPassword = bcrypt.hashSync(password, foundUser.salt);
 
         // Check if it's valid
         const passwordIsValid =
