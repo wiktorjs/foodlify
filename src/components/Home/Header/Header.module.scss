@@ -36,6 +36,7 @@
   @include respond(tab-port) {
     height: auto;
     flex-direction: column-reverse;
+    align-items: center;
     gap: 0;
   }
 }

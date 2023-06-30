@@ -72,6 +72,10 @@
       border-bottom: 1px solid currentColor;
       font-weight: 600;
     }
+
+    @include respond(tab-port) {
+      padding-top: 5rem;
+    }
   }
 
   // ! Filters styling for 900px vw
@@ -79,8 +83,7 @@
     z-index: 99;
     position: fixed;
     bottom: 0;
-    height: 50vh;
-    max-height: 50vh;
+    max-height: 40rem;
     width: 100%;
     left: 0;
     transform: translateY(100%);
@@ -107,7 +110,8 @@
       transition: none;
 
       & li {
-        flex: 0 0 15rem;
+        margin-right: 2rem;
+        width: 15rem;
 
         &:last-of-type {
           margin: 0 0 1.8rem;

@@ -51,13 +51,19 @@
           color: var(--color-primary);
         }
 
-        &.demo {
+        &.demo, &.loading {
           color: var(--color-primary);
+        }
+
+        &.loading:hover {
+          border-color: transparent;
         }
 
         &.delete {
           color: var(--color-error);
         }
+
+       
       }
 
       // | Icon box anchor

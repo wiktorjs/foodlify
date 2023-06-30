@@ -46,7 +46,7 @@ export default function MainNavigation({ type, darkThemeActive }) {
   const mobileNavigationHandler = () =>
     setMobileNavIsActive((prevState) => !prevState);
 
-  const { sendRequest } = useLoginRequest();
+  const { sendRequest, isLoading } = useLoginRequest();
   const { validateUser } = useValidate();
 
   const deleteAccHandler = async () => {
@@ -117,20 +117,28 @@ export default function MainNavigation({ type, darkThemeActive }) {
                 </Link>
               </li>
 
-              <li>
-                <p
-                  className={`${classes.link} ${classes.demo}`}
-                  onClick={() =>
-                    sendRequest({
-                      username: 'demoacc',
-                      password: 'demoaccount12!',
-                      query: { type: 'sign-in' },
-                    })
-                  }
-                >
-                  Use Demo Account
-                </p>
-              </li>
+              {!isLoading ? (
+                <li>
+                  <p
+                    className={`${classes.link} ${classes.demo}`}
+                    onClick={() =>
+                      sendRequest({
+                        username: 'demoacc',
+                        password: 'demoaccount12!',
+                        query: { type: 'sign-in' },
+                      })
+                    }
+                  >
+                    Use Demo Account
+                  </p>
+                </li>
+              ) : (
+                <li>
+                  <p className={`${classes.link} ${classes.loading}`}>
+                    Signing in...
+                  </p>
+                </li>
+              )}
             </>
           )}
 
@@ -176,11 +184,17 @@ export default function MainNavigation({ type, darkThemeActive }) {
         onClick={closeOverlayHandler}
       />
 
-      <div className={`${classes.confirmation} ${deleteOverlay ? classes.visible : ''}`}>
+      <div
+        className={`${classes.confirmation} ${
+          deleteOverlay ? classes.visible : ''
+        }`}
+      >
         <div className={classes['confirmation-box']}>
           <p>Are you sure? This action is irreversible!</p>
           <div>
-            <button onClick={() => setDeleteOverlay(false)}>Take me back</button>
+            <button onClick={() => setDeleteOverlay(false)}>
+              Take me back
+            </button>
             <button onClick={deleteAccHandler}>Confirm</button>
           </div>
         </div>
