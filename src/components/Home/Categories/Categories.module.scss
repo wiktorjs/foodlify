@@ -41,6 +41,8 @@
     // flex-wrap: wrap;
     margin-bottom: 3rem;
   }
+
+ 
 }
 
 .recipes-box {
@@ -70,5 +72,9 @@
 
     margin-top: 3rem;
     padding-top: 10rem;
+  }
+
+  @include respond(phone) {
+    grid-row: 4;
   }
 }

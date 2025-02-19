@@ -4,7 +4,7 @@ export default function useHttp() {
   const [error, setError] = useState(null);
 
   const validateRequestLimit = function () {
-    // | Limiting request to one per 30s
+    // | Limiting request to one per 15s
     const timeBetweenRequests = 15 * 1000;
     const currentTime = Date.now();
     const lastRequestTime = localStorage.getItem('lastRequestTime') || 0;

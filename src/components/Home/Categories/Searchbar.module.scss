@@ -30,7 +30,10 @@
     justify-self: center;
   }
 
-
+  @include respond(phone) {
+    grid-row: 3;
+    grid-column: 1 / -1;
+  }
 }
 
 .form:has(.input:focus) {
